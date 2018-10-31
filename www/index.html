@@ -31,11 +31,15 @@
             <h4 class="card-title mb-0">Spend</h3>
           </div>
           <div class="card-body">
-            <div class="input-group mb-2">
+            <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
               </div>
               <input id="spendMoneyInput" type="number" pattern="-?\d+\.\d*" class="form-control" placeholder="0.00" />
+            </div>
+            <div class="progress mb-2">
+              <div class="progress-bar bg-success" role="progressbar" id="spendingBar"
+                style="width: 100%"></div>
             </div>
             <div class="mb-3">
               <select id="currencySelector" class="custom-select">
@@ -84,8 +88,23 @@
       function updateCurrency() {
         setTimeout(function () {
           var val = $("#spendMoneyInput").val();
-          $("#convertedCurrency").html(currencyFormatter.format(val / settings.currency));
-          $("#spendButton").attr("disabled", val == 0);
+          var inAud = val / settings.currency;
+          var percentLeft = (settings.money - inAud) / settings.money;
+
+          $("#convertedCurrency").html(currencyFormatter.format(inAud));
+          var spendButton = $("#spendButton");
+          spendButton.attr("disabled", val == 0 || percentLeft < 0);
+          spendButton.toggleClass("btn-success", percentLeft > 0.7);
+          spendButton.toggleClass("btn-warning", percentLeft > 0.4 && percentLeft <= 0.7);
+          spendButton.toggleClass("btn-danger", percentLeft <= 0.4);
+
+          var spendingBar = $("#spendingBar");
+          spendingBar.attr("style", `width: ${100 * percentLeft}%`);
+          spendingBar.toggleClass("bg-success", percentLeft > 0.7);
+          spendingBar.toggleClass("bg-warning", percentLeft > 0.4 && percentLeft <= 0.7);
+          spendingBar.toggleClass("bg-danger", percentLeft <= 0.4);
+
+          $("#spendMoneyInput").toggleClass("text-danger", percentLeft < 0);
         }, 0.01);
       }
 
