@@ -10,12 +10,13 @@
     <script src="js/jquery.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/lodash.js"></script>
     <script type="text/javascript" src="js/localforage.min.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
   </head>
   <body>
     <div class="text-center">
-      <h1 class="text-small text-muted my-3">Budget Haver</h1>
+      <h1 class="text-small text-muted my-3 title-content">Budget Haver</h1>
       <div class="container">
         <div class="card text-light bg-info">
           <div class="card-header">
@@ -30,11 +31,19 @@
           Last added: <span id="lastUpdated"></span>
         </div>
 
+        <!-- Bottom Section -->
+        <!-- Menu -->
         <ul class="nav nav-tabs mt-2" id="tabMenu" role="tablist">
           <li class="nav-item">
             <a class="nav-link" id="spend-tab" data-toggle="tab" href="#spend"
                                 role="tab" aria-controls="spend" aria-selected="true">
               <i class="far fa-dollar-sign"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="goal-tab" data-toggle="tab" href="#goal"
+                                role="tab" aria-controls="goal" aria-selected="true">
+              <i class="far fa-trophy"></i>
             </a>
           </li>
           <li class="nav-item ml-auto">
@@ -43,8 +52,18 @@
               <i class="far fa-cog"></i>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="help-tab" data-toggle="tab" href="#help"
+                                role="tab" aria-controls="help" aria-selected="true">
+              <i class="far fa-question"></i>
+            </a>
+          </li>
         </ul>
-        <div class="card border-top-0 rounded-top-0 tab-content">
+
+        <!-- Content -->
+        <div class="card border-top-0 rounded-top-0 tab-content mb-3">
+
+          <!-- Spend -->
           <div class="card-body tab-pane fade" role="tabpanel" id="spend" aria-labelledby="spend-tab">
             <div class="input-group rounded-bottom-0">
               <div class="input-group-prepend">
@@ -70,14 +89,72 @@
             <button class="btn btn-lg btn-danger" id="spendButton" disabled>Spend Money!</button>
           </div>
 
+          <!-- Goal -->
+          <div class="card-body tab-pane fade text-left" role="tabpanel" id="goal" aria-labelledby="goal-tab">
+            <div class="form-group">
+              <label for="goalAmountInput" class="mb-0">I need</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input readonly type="number" pattern="-?\d+\.\d*" class="form-control" id="goalAmountInput" placeholder="0">
+                <div class="input-group-append">
+                  <button class="btn btn-danger unlock-edit-button" target="#goalAmountInput">
+                    <i class="far fa-edit locked"></i>
+                    <i class="far fa-lock unlocked"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="goalDescriptionInput" class="mb-0">for</label>
+              <div class="input-group">
+                <input readonly type="text" pattern="-?\d+\.\d*" class="form-control" id="goalDescriptionInput" placeholder="something">
+                <div class="input-group-append">
+                  <button class="btn btn-danger unlock-edit-button" target="#goalDescriptionInput">
+                    <i class="far fa-edit locked"></i>
+                    <i class="far fa-lock unlocked"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <p class="mb-0">
+              Progress:
+            </p>
+            <div class="progress mb-2">
+              <div class="progress-bar bg-success" role="progressbar" id="goalProgress"
+                style="width: 0%"></div>
+            </div>
+
+          </div>
+
+          <!-- Settings -->
           <div class="card-body tab-pane fade text-left" role="tabpanel" id="settings">
+            <div class="form-group">
+              <label for="balanceOverrideInput">Override Balance</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input readonly type="number" pattern="-?\d+\.\d*" class="form-control" id="balanceOverrideInput" placeholder="0">
+                <div class="input-group-append">
+                  <button class="btn btn-danger unlock-edit-button" target="#balanceOverrideInput">
+                    <i class="far fa-edit locked"></i>
+                    <i class="far fa-lock unlocked"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="dailyBudgetInput">Daily Budget</label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">$</span>
                 </div>
-                <input readonly type="number" pattern="\d*" class="form-control" id="dailyBudgetInput" placeholder="$0">
+                <input readonly type="number" pattern="\d*" class="form-control" id="dailyBudgetInput" placeholder="0">
                 <div class="input-group-append">
                   <button class="btn btn-danger unlock-edit-button" target="#dailyBudgetInput">
                     <i class="far fa-edit locked"></i>
@@ -86,6 +163,25 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Help -->
+          <div class="card-body tab-pane fade text-left" role="tabpanel" id="help">
+            <p><span class="title-content font-italic"></span> is a minimalistic budgeting
+            app, designed to force you to make everyday spending decisions consciously.</p>
+            <p>To use it, first choose a daily budget in the <i class="far fa-cog"></i> Settings tab.
+              This amount will be added to your balance each day.</p>
+            <p>Then, whenever you spend money, log it in the <i class="far fa-dollar-sign"></i> Spend tab.
+              You should log this at the point of decision (so if some of the money will be automatically
+              paid later, put it in when you set that up).</p>
+            <p>Finally, take your balance seriously. Going below 0 is bad.</p>
+            <p>Things you shouldn't log:
+              <ul>
+                <li>Recurring costs - these affect your daily budget</li>
+                <li>Savings - just lower your daily budget to start saving</li>
+                <li>ATM Withdrawals - you still have the money!</li>
+              </ul>
+            </p>
           </div>
         </div>
       </div>
@@ -98,8 +194,12 @@
         lastUpdated: moment().valueOf(),
         budget: 65,
         currency: 1,
-        currentTab: "#settings"
+        currentTab: "#settings",
+        goalAmount: 0,
+        goalDescription: ""
       };
+
+      const title = "Budget Haver";
 
       var currencyFormatter = new Intl.NumberFormat('en-AU', {
         style: 'currency',
@@ -116,6 +216,18 @@
           $("#lastUpdated").html(moment(settings.lastUpdated).format("D MMMM YY"));
           $("#currencySelector").val(settings.currency);
           $("#currencyConverter").toggleClass('d-none', settings.currency == 1);
+          $('#balanceOverrideInput').val(settings.money);
+          $('#goalAmountInput').val(settings.goalAmount);
+          $('#goalDescriptionInput').val(settings.goalDescription);
+
+          var goalProgress = settings.goalAmount == 0 ? 0 :
+            Math.min(1, Math.max(0, settings.money / settings.goalAmount));
+          var goalBar = $('#goalProgress');
+          goalBar.attr("style", `width: ${goalProgress * 100}%`);
+          goalBar.toggleClass("bg-success", goalProgress == 1);
+          goalBar.toggleClass("bg-warning", goalProgress > 0.5 && goalProgress < 1);
+          goalBar.toggleClass("bg-danger", goalProgress < 0.5);
+
           updateCurrency();
         });
       }
@@ -154,7 +266,9 @@
           lastUpdated: moment().valueOf(),
           budget: set.budget,
           currency: set.currency || 1,
-          currentTab: set.currentTab || defaultSettings.currentTab
+          currentTab: set.currentTab || defaultSettings.currentTab,
+          goalAmount: set.goalAmount || defaultSettings.goalAmount,
+          goalDescription: set.goalDescription || defaultSettings.goalDescription
         };
 
         update();
@@ -190,6 +304,35 @@
             update();
           }, 0.01);
         });
+
+        $('#balanceOverrideInput').on('keyup', (evt) => {
+          setTimeout(function () {
+            var newVal = Number($('#balanceOverrideInput').val());
+            if (_.isNumber(newVal)) {
+              settings.money = newVal;
+            }
+            update();
+          }, 0.01);
+        });
+
+        $('#goalAmountInput').on('keyup', (evt) => {
+          setTimeout(function () {
+            var newVal = Number($('#goalAmountInput').val());
+            if (_.isNumber(newVal)) {
+              settings.goalAmount = newVal;
+            }
+            update();
+          }, 0.01);
+        });
+
+        $('#goalDescriptionInput').on('keyup', (evt) => {
+          setTimeout(function () {
+            settings.goalDescription = $('#goalDescriptionInput').val();
+            update();
+          }, 0.01);
+        });
+
+        $(".title-content").html(title);
 
         $(".unlock-edit-button").on('click', (evt) => {
           var button = $(evt.currentTarget);
