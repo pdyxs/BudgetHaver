@@ -89,20 +89,20 @@
         setTimeout(function () {
           var val = $("#spendMoneyInput").val();
           var inAud = val / settings.currency;
-          var percentLeft = (settings.money - inAud) / settings.money;
+          var percentLeft = settings.money < 0 ? -1 : (settings.money - inAud) / settings.money;
 
           $("#convertedCurrency").html(currencyFormatter.format(inAud));
           var spendButton = $("#spendButton");
-          spendButton.attr("disabled", val == 0 || percentLeft < 0);
-          spendButton.toggleClass("btn-success", percentLeft > 0.7);
-          spendButton.toggleClass("btn-warning", percentLeft > 0.4 && percentLeft <= 0.7);
-          spendButton.toggleClass("btn-danger", percentLeft <= 0.4);
+          spendButton.attr("disabled", val == 0);
+          spendButton.toggleClass("btn-success", percentLeft > 0.5);
+          spendButton.toggleClass("btn-warning", percentLeft > 0 && percentLeft <= 0.5);
+          spendButton.toggleClass("btn-danger", percentLeft <= 0);
 
           var spendingBar = $("#spendingBar");
           spendingBar.attr("style", `width: ${100 * percentLeft}%`);
-          spendingBar.toggleClass("bg-success", percentLeft > 0.7);
-          spendingBar.toggleClass("bg-warning", percentLeft > 0.4 && percentLeft <= 0.7);
-          spendingBar.toggleClass("bg-danger", percentLeft <= 0.4);
+          spendingBar.toggleClass("bg-success", percentLeft > 0.5);
+          spendingBar.toggleClass("bg-warning", percentLeft > 0 && percentLeft <= 0.5);
+          spendingBar.toggleClass("bg-danger", percentLeft <= 0);
 
           $("#spendMoneyInput").toggleClass("text-danger", percentLeft < 0);
         }, 0.01);
