@@ -216,7 +216,7 @@
           $("#lastUpdated").html(moment(settings.lastUpdated).format("D MMMM YY"));
           $("#currencySelector").val(settings.currency);
           $("#currencyConverter").toggleClass('d-none', settings.currency == 1);
-          $('#balanceOverrideInput').val(settings.money);
+          $('#balanceOverrideInput').val(settings.money.toFixed(2));
           $('#goalAmountInput').val(settings.goalAmount);
           $('#goalDescriptionInput').val(settings.goalDescription);
 
