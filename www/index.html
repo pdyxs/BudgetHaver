@@ -99,7 +99,7 @@
           spendButton.toggleClass("btn-danger", percentLeft <= 0);
 
           var spendingBar = $("#spendingBar");
-          spendingBar.attr("style", `width: ${100 * percentLeft}%`);
+          spendingBar.attr("style", `width: ${Math.max(0, 100 * percentLeft)}%`);
           spendingBar.toggleClass("bg-success", percentLeft > 0.5);
           spendingBar.toggleClass("bg-warning", percentLeft > 0 && percentLeft <= 0.5);
           spendingBar.toggleClass("bg-danger", percentLeft <= 0);
