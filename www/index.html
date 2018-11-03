@@ -5,8 +5,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Budget Haver</title>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/fontawesome-webfonts.css">
+    <link rel="stylesheet" href="css/budget.css">
     <script src="js/jquery.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/localforage.min.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
   </head>
@@ -26,18 +29,30 @@
           You get $<span id="dailyBudget">0</span> per day<br />
           Last added: <span id="lastUpdated"></span>
         </div>
-        <div class="card mt-4">
-          <div class="card-header">
-            <h4 class="card-title mb-0">Spend</h3>
-          </div>
-          <div class="card-body">
-            <div class="input-group">
+
+        <ul class="nav nav-tabs mt-2" id="tabMenu" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" id="spend-tab" data-toggle="tab" href="#spend"
+                                role="tab" aria-controls="spend" aria-selected="true">
+              <i class="far fa-dollar-sign"></i>
+            </a>
+          </li>
+          <li class="nav-item ml-auto">
+            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings"
+                                role="tab" aria-controls="settings" aria-selected="true">
+              <i class="far fa-cog"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="card border-top-0 rounded-top-0 tab-content">
+          <div class="card-body tab-pane fade" role="tabpanel" id="spend" aria-labelledby="spend-tab">
+            <div class="input-group rounded-bottom-0">
               <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
               </div>
               <input id="spendMoneyInput" type="number" pattern="-?\d+\.\d*" class="form-control" placeholder="0.00" />
             </div>
-            <div class="progress mb-2">
+            <div class="progress mb-2 rounded-top-0">
               <div class="progress-bar bg-success" role="progressbar" id="spendingBar"
                 style="width: 100%"></div>
             </div>
@@ -54,16 +69,36 @@
             </div>
             <button class="btn btn-lg btn-danger" id="spendButton" disabled>Spend Money!</button>
           </div>
+
+          <div class="card-body tab-pane fade text-left" role="tabpanel" id="settings">
+            <div class="form-group">
+              <label for="dailyBudgetInput">Daily Budget</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input readonly type="number" pattern="\d*" class="form-control" id="dailyBudgetInput" placeholder="$0">
+                <div class="input-group-append">
+                  <button class="btn btn-danger unlock-edit-button" target="#dailyBudgetInput">
+                    <i class="far fa-edit locked"></i>
+                    <i class="far fa-lock unlocked"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/currencies.js"></script>
     <script type="text/javascript">
       const defaultSettings = {
         money: 200,
         lastUpdated: moment().valueOf(),
         budget: 65,
-        currency: 1
+        currency: 1,
+        currentTab: "#settings"
       };
 
       var currencyFormatter = new Intl.NumberFormat('en-AU', {
@@ -118,7 +153,8 @@
           money: money,
           lastUpdated: moment().valueOf(),
           budget: set.budget,
-          currency: set.currency || 1
+          currency: set.currency || 1,
+          currentTab: set.currentTab || defaultSettings.currentTab
         };
 
         update();
@@ -137,6 +173,30 @@
           settings.money -= $("#spendMoneyInput").val() / settings.currency;
           $("#spendMoneyInput").val('');
           update();
+        });
+
+        $(`#tabMenu a[href="${settings.currentTab}"]`).tab('show');
+
+        $('#tabMenu a').on('click', function (e) {
+          settings.currentTab = $(this).attr('href');
+          update();
+        });
+
+        $('#dailyBudgetInput').val(settings.budget);
+
+        $('#dailyBudgetInput').on('keyup', (evt) => {
+          setTimeout(function () {
+            settings.budget = $('#dailyBudgetInput').val();
+            update();
+          }, 0.01);
+        });
+
+        $(".unlock-edit-button").on('click', (evt) => {
+          var button = $(evt.currentTarget);
+          var input = $(button.attr('target'));
+          var isEditing = !input.attr('readonly');
+          input.attr('readonly', isEditing);
+          button.toggleClass('editing', !isEditing);
         });
       }
 
