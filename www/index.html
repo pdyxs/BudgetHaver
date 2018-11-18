@@ -36,25 +36,31 @@
         <ul class="nav nav-tabs mt-2" id="tabMenu" role="tablist">
           <li class="nav-item">
             <a class="nav-link" id="spend-tab" data-toggle="tab" href="#spend"
-                                role="tab" aria-controls="spend" aria-selected="true">
+                                role="tab" aria-controls="spend">
               <i class="far fa-dollar-sign"></i>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="goal-tab" data-toggle="tab" href="#goal"
-                                role="tab" aria-controls="goal" aria-selected="true">
+                                role="tab" aria-controls="goal">
               <i class="far fa-trophy"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="history-tab" data-toggle="tab" href="#history"
+                                role="tab" aria-controls="history">
+              <i class="far fa-history"></i>
             </a>
           </li>
           <li class="nav-item ml-auto">
             <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings"
-                                role="tab" aria-controls="settings" aria-selected="true">
+                                role="tab" aria-controls="settings">
               <i class="far fa-cog"></i>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="help-tab" data-toggle="tab" href="#help"
-                                role="tab" aria-controls="help" aria-selected="true">
+                                role="tab" aria-controls="help">
               <i class="far fa-question"></i>
             </a>
           </li>
@@ -130,6 +136,20 @@
 
           </div>
 
+          <!-- History -->
+          <div class="card-body tab-pane fade text-left py-0 px-0" role="tabpanel" id="history" aria-labelledby="history-tab">
+            <table class="table m-0">
+              <thead>
+                <tr>
+                  <th class="border-top-0">When</th>
+                  <th class="border-top-0">How much</th>
+                </tr>
+              </thead>
+              <tbody id="historyList">
+              </tbody>
+            </table>
+          </div>
+
           <!-- Settings -->
           <div class="card-body tab-pane fade text-left" role="tabpanel" id="settings">
             <div class="form-group">
@@ -194,7 +214,7 @@
         lastUpdated: moment().valueOf(),
         budget: 65,
         currency: 1,
-        currentTab: "#settings",
+        currentTab: "#help",
         goalAmount: 0,
         goalDescription: ""
       };
@@ -208,6 +228,7 @@
       });
 
       var settings = {};
+      var spendHistory = [];
 
       function update() {
         localforage.setItem('settings', settings).then(() => {
@@ -255,6 +276,35 @@
         }, 0.01);
       }
 
+      function addHistory(amount) {
+        spendHistory.push({
+          date: moment().valueOf(),
+          amount: amount
+        });
+        updateHistory();
+      }
+
+      function updateHistory() {
+        localforage.setItem('history', spendHistory).then(() => {
+          var list = $('#historyList');
+          list.empty();
+          var hist = _.reverse(_.takeRight(spendHistory, 5));
+          for (var i = 0; i != hist.length; ++i) {
+            var h = hist[i];
+            var row = $("<tr/>").appendTo(list);
+            $("<td/>").appendTo(row)
+                      .html(moment(h.date).calendar());
+            $("<td/>").appendTo(row)
+                      .html(currencyFormatter.format(h.amount));
+          }
+        });
+      }
+
+      function setupHistory(hist) {
+        spendHistory = hist || [];
+        updateHistory();
+      }
+
       function setup(set) {
         var today = moment().startOf("day");
         var lastUpdated = moment(set.lastUpdated).startOf("day");
@@ -284,9 +334,11 @@
         });
 
         $("#spendButton").click(() => {
-          settings.money -= $("#spendMoneyInput").val() / settings.currency;
+          spending = $("#spendMoneyInput").val() / settings.currency;
+          settings.money -= spending;
           $("#spendMoneyInput").val('');
           update();
+          addHistory(spending);
         });
 
         $(`#tabMenu a[href="${settings.currentTab}"]`).tab('show');
@@ -346,6 +398,10 @@
       $(document).ready(() => {
         localforage.getItem('settings').then(settings => {
           setup(settings || defaultSettings);
+        });
+
+        localforage.getItem('history').then(h => {
+          setupHistory(h);
         });
       });
     </script>
