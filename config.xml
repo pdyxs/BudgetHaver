@@ -11,6 +11,7 @@
     <icon src="icon" />
     <platform name="ios">
       <icon src="icon-60@3x.png" platform="ios" width="180" height="180" />
+      <splash src="Default-Portrait-736h@3x.png" platform="ios" width="1242" height="2208" />
     </platform>
     <access origin="*" />
 </widget>
