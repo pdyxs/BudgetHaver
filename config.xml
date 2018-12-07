@@ -2,11 +2,12 @@
 <widget id="wtf.pdyxs.budget" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>BudgetHaver</name>
     <description>
-        Budget App
+        Budget Haver
     </description>
     <author email="talk@pdyxs.wtf" href="http://pdyxs.wtf">
         Paul Sztajer
     </author>
     <content src="index.html" />
+    <icon src="icon.png" />
     <access origin="*" />
 </widget>
