@@ -10,8 +10,9 @@
     <content src="index.html" />
     <icon src="icon" />
     <platform name="ios">
-      <icon src="icon-60@3x.png" platform="ios" width="180" height="180" />
-      <splash src="Default-Portrait-736h@3x.png" platform="ios" width="1242" height="2208" />
+      <icon src="icon-60@3x.png" width="180" height="180" />
+      <splash src="Default-667h@2x.png" width="750" height="1334" />
+      <splash src="Default-Portrait-736h@3x.png" width="1242" height="2208" />
     </platform>
     <access origin="*" />
 </widget>
