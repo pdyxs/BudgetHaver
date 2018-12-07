@@ -8,6 +8,9 @@
         Paul Sztajer
     </author>
     <content src="index.html" />
-    <icon src="icon.png" />
+    <icon src="icon" />
+    <platform name="ios">
+      <icon src="icon-60@3x.png" platform="ios" width="180" height="180" />
+    </platform>
     <access origin="*" />
 </widget>
