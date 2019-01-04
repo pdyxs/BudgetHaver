@@ -1,3 +1,21 @@
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+// import store from "../js/store/index";
+import App from "../js/components/App";
+import { Router, Route } from 'react-router-dom';
+import { createHashHistory } from 'history';
+
+import moment from 'moment';
+
+const history = createHashHistory();
+render(
+  <Router history={history}>
+    <Route path="/" component={App} />
+  </Router>,
+  document.getElementById("app")
+);
+
 const defaultSettings = {
   money: 200,
   lastUpdated: moment().valueOf(),
@@ -98,59 +116,59 @@ function setup(set) {
 
   update();
 
-  //setup listeners
-  $("#currencySelector").on('change', (evt) => {
-    settings.currency = evt.target.value;
-    update();
-  });
-
-  $("#spendMoneyInput").on('keyup', (evt) => {
-    updateCurrency();
-  });
-
-  $("#spendButton").click(() => {
-    spending = $("#spendMoneyInput").val() / settings.currency;
-    settings.money -= spending;
-    $("#spendMoneyInput").val('');
-    update();
-    addHistory(spending);
-  });
-
-  $(`#tabMenu a[href="${settings.currentTab}"]`).tab('show');
-
-  $('#tabMenu a').on('click', function (e) {
-    settings.currentTab = $(this).attr('href');
-    update();
-  });
-
-  $('#dailyBudgetInput').val(settings.budget);
-
-  $('#dailyBudgetInput').on('keyup', (evt) => {
-    setTimeout(function () {
-      settings.budget = $('#dailyBudgetInput').val();
-      update();
-    }, 0.01);
-  });
-
-  $('#balanceOverrideInput').on('keyup', (evt) => {
-    setTimeout(function () {
-      var newVal = Number($('#balanceOverrideInput').val());
-      if (_.isNumber(newVal)) {
-        settings.money = newVal;
-      }
-      update();
-    }, 0.01);
-  });
-
-  $(".title-content").html(title);
-
-  $(".unlock-edit-button").on('click', (evt) => {
-    var button = $(evt.currentTarget);
-    var input = $(button.attr('target'));
-    var isEditing = !input.attr('readonly');
-    input.attr('readonly', isEditing);
-    button.toggleClass('editing', !isEditing);
-  });
+  // //setup listeners
+  // $("#currencySelector").on('change', (evt) => {
+  //   settings.currency = evt.target.value;
+  //   update();
+  // });
+  //
+  // $("#spendMoneyInput").on('keyup', (evt) => {
+  //   updateCurrency();
+  // });
+  //
+  // $("#spendButton").click(() => {
+  //   spending = $("#spendMoneyInput").val() / settings.currency;
+  //   settings.money -= spending;
+  //   $("#spendMoneyInput").val('');
+  //   update();
+  //   addHistory(spending);
+  // });
+  //
+  // $(`#tabMenu a[href="${settings.currentTab}"]`).tab('show');
+  //
+  // $('#tabMenu a').on('click', function (e) {
+  //   settings.currentTab = $(this).attr('href');
+  //   update();
+  // });
+  //
+  // $('#dailyBudgetInput').val(settings.budget);
+  //
+  // $('#dailyBudgetInput').on('keyup', (evt) => {
+  //   setTimeout(function () {
+  //     settings.budget = $('#dailyBudgetInput').val();
+  //     update();
+  //   }, 0.01);
+  // });
+  //
+  // $('#balanceOverrideInput').on('keyup', (evt) => {
+  //   setTimeout(function () {
+  //     var newVal = Number($('#balanceOverrideInput').val());
+  //     if (_.isNumber(newVal)) {
+  //       settings.money = newVal;
+  //     }
+  //     update();
+  //   }, 0.01);
+  // });
+  //
+  // $(".title-content").html(title);
+  //
+  // $(".unlock-edit-button").on('click', (evt) => {
+  //   var button = $(evt.currentTarget);
+  //   var input = $(button.attr('target'));
+  //   var isEditing = !input.attr('readonly');
+  //   input.attr('readonly', isEditing);
+  //   button.toggleClass('editing', !isEditing);
+  // });
 }
 
 $(document).ready(() => {
