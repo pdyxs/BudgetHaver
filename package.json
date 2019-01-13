@@ -1,6 +1,6 @@
 {
   "name": "budget-haver",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Budget Haver",
   "scripts": {
     "build": "webpack",
@@ -32,6 +32,7 @@
     "node-sass": "^4.9.3",
     "postcss-loader": "^3.0.0",
     "precss": "^3.1.2",
+    "raw-loader": "^1.0.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "webpack": "^3.11.0"
@@ -45,10 +46,13 @@
     "bootstrap": "^4.2.1",
     "history": "^4.7.2",
     "i": "^0.3.6",
+    "immutable": "^4.0.0-rc.12",
+    "localforage": "^1.7.3",
     "moment": "^2.23.0",
     "npm": "^6.5.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-markdown": "^4.0.6",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1"
