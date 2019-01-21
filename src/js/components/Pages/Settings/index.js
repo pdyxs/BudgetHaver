@@ -1,45 +1,72 @@
 import Pages from './';
 import React, { Component, Fragment } from "react";
+import LockableInput from 'components/generics/LockableInput';
+import { connect } from 'react-redux';
+import { overrideBalance, overrideBudget } from 'modules/budget';
 
-class SettingsPage extends Component {
+class SettingsPage extends Component
+{
+
+  setBalance = (value) => {
+    this.props.overrideBalance(Number(value));
+  }
+
+  setBudget = (value) => {
+    this.props.overrideBudget(Number(value));
+  }
 
   render() {
     return (
       <div className="card-body text-left" role="tabpanel" id="settings">
         <div className="form-group">
           <label>Override Balance</label>
-          <div className="input-group">
-            <div className="input-group-prepend">
+          <LockableInput
+            type="number"
+            pattern="-?\d+\.\d*"
+            placeholder="0"
+            value={this.props.budget.balance || 0}
+            onSubmit={this.setBalance}
+            prepend={(
               <span className="input-group-text">$</span>
-            </div>
-            <input readOnly type="number" pattern="-?\d+\.\d*" className="form-control" id="balanceOverrideInput" placeholder="0" />
-            <div className="input-group-append">
-              <button className="btn btn-danger unlock-edit-button" target="#balanceOverrideInput">
-                <i className="far fa-edit locked"></i>
-                <i className="far fa-lock unlocked"></i>
-              </button>
-            </div>
-          </div>
+            )}>
+          </LockableInput>
         </div>
 
         <div className="form-group">
           <label>Daily Budget</label>
-          <div className="input-group">
-            <div className="input-group-prepend">
+          <LockableInput
+            type="number"
+            pattern="-?\d+\.\d*"
+            placeholder="0"
+            value={this.props.budget.budget || 0}
+            onSubmit={this.setBudget}
+            prepend={(
               <span className="input-group-text">$</span>
-            </div>
-            <input readOnly type="number" pattern="\d*" className="form-control" id="dailyBudgetInput" placeholder="0" />
-            <div className="input-group-append">
-              <button className="btn btn-danger unlock-edit-button" target="#dailyBudgetInput">
-                <i className="far fa-edit locked"></i>
-                <i className="far fa-lock unlocked"></i>
-              </button>
-            </div>
-          </div>
+            )}>
+          </LockableInput>
         </div>
       </div>
     );
   }
 }
 
-export default SettingsPage;
+const mapStateToProps = ({budget}) => {
+  return {
+    budget
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    overrideBalance: (amount) => {
+      dispatch(overrideBalance(amount))
+    },
+    overrideBudget: (amount) => {
+      dispatch(overrideBudget(amount))
+    }
+  };
+}
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(SettingsPage);

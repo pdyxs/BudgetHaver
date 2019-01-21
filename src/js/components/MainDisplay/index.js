@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class MainDisplay extends Component {
 
