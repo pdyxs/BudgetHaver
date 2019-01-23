@@ -46508,7 +46508,7 @@ function (_Component) {
         className: "container text-right"
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
         className: "small text-muted"
-      }, "v", "0.2.0", ", built on ", "23/1/2019", " at ", "02:45:57", " (UTC)"))));
+      }, "v", "0.2.0", ", built on ", "23/1/2019", " at ", "02:52:21", " (UTC)"))));
     }
   }]);
 
