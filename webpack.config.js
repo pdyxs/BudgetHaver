@@ -37,9 +37,9 @@ module.exports = function makeWebpackConfig() {
     filename: "[name].js"
   };
 
-  if (isProd) {
-    config.devtool = 'source-map';
-  } else {
+  if (!isProd) {
+  //   config.devtool = 'source-map';
+  // } else {
     config.devtool = 'inline-source-map'
   }
 
@@ -125,7 +125,7 @@ module.exports = function makeWebpackConfig() {
   if (isProd) {
     config.plugins = [
       new DuplicatePackageCheckerPlugin(),
-      new webpack.optimize.UglifyJsPlugin()
+      // new webpack.optimize.UglifyJsPlugin()
     ];
   }
 
