@@ -33,8 +33,8 @@ module.exports = function makeWebpackConfig() {
 
   config.output = {
     path: path.resolve(__dirname, "www"),
-    publicPath: "/",
-    filename: "js/[name].js"
+    publicPath: "",
+    filename: "[name].js"
   };
 
   if (isProd) {
@@ -125,7 +125,7 @@ module.exports = function makeWebpackConfig() {
   if (isProd) {
     config.plugins = [
       new DuplicatePackageCheckerPlugin(),
-      // new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin()
     ];
   }
 
@@ -135,10 +135,10 @@ module.exports = function makeWebpackConfig() {
       filename: "./index.html"
   }));
 
-  config.plugins.push(
-    new CopyWebpackPlugin([{
-      from: './static', to: './'
-  }]));
+  // config.plugins.push(
+  //   new CopyWebpackPlugin([{
+  //     from: './static', to: './'
+  // }]));
 
   config.plugins.push(
     new webpack.DefinePlugin({
