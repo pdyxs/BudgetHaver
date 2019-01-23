@@ -44,13 +44,12 @@ export function overrideBudget(amount)
 
 const initialState = {
   balance: null,
-  lastUpdated: moment().valueOf(),
+  lastUpdated: null,
   budget: null
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-
     case SPEND:
       var newBalance = state.balance - action.amount;
       localforage.setItem('balance', newBalance);
@@ -60,15 +59,20 @@ export default function reducer(state = initialState, action = {}) {
       };
 
     case CHECK:
+      if (state.lastUpdated == null) {
+        var lastUpdated = moment().valueOf();
+        return {
+          ...state,
+          lastUpdated
+        }
+      }
       var lastDayUpdated = moment(state.lastUpdated).startOf("day");
       var daysSince = moment().startOf("day").diff(lastDayUpdated, 'days');
       var newBalance = state.balance;
       if (daysSince != 0) {
         newBalance = newBalance + state.budget * daysSince;
-        // localforage.setItem('balance', newBalance);
       }
       var lastUpdated = moment().valueOf();
-      // localforage.setItem('lastUpdated', lastUpdated);
       return {
         ...state,
         balance: newBalance,

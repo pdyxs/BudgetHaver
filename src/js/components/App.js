@@ -5,11 +5,27 @@ import Menu from './Menu';
 import CurrentPage from './Pages/CurrentPage';
 import { connect } from 'react-redux';
 import { checkIncome } from 'modules/budget';
+import moment from 'moment';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    props.checkIncome();
+  componentDidUpdate(prevProps) {
+    if (prevProps.budget.balance == null &&
+      this.props.budget.balance != null)
+    {
+      this.timerID = setInterval(
+        () => this.doCheck(),
+        2000
+      );
+      this.doCheck();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  doCheck() {
+    this.props.checkIncome();
   }
 
   render() {
@@ -33,6 +49,12 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({budget}) => {
+  return {
+    budget
+  };
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     checkIncome: () => {
@@ -41,4 +63,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
