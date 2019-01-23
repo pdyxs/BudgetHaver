@@ -125,7 +125,7 @@ module.exports = function makeWebpackConfig() {
   if (isProd) {
     config.plugins = [
       new DuplicatePackageCheckerPlugin(),
-      new webpack.optimize.UglifyJsPlugin()
+      // new webpack.optimize.UglifyJsPlugin()
     ];
   }
 
