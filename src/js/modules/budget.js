@@ -1,6 +1,10 @@
 // balance.js
 import moment from 'moment';
 import { addHistoryRecord } from './history';
+import {initState, saveState} from 'modules/saveable';
+
+const init = initState('budget');
+const save = saveState('budget');
 
 const SPEND             = 'budget-haver/budget/spend';
 const CHECK             = 'budget-haver/budget/check';
@@ -41,11 +45,11 @@ export function overrideBudget(amount)
   };
 }
 
-const initialState = {
-  balance: null,
-  lastUpdated: null,
-  budget: null
-};
+const initialState = init({
+  balance: 200,
+  lastUpdated: moment().valueOf(),
+  budget: 50
+});
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -53,7 +57,7 @@ export default function reducer(state = initialState, action = {}) {
       var newBalance = state.balance - action.amount;
       return {
         ...state,
-        balance: newBalance
+        ...save({balance: newBalance})
       };
 
     case CHECK:
@@ -61,7 +65,7 @@ export default function reducer(state = initialState, action = {}) {
         var lastUpdated = moment().valueOf();
         return {
           ...state,
-          lastUpdated
+          ...save({lastUpdated})
         }
       }
       var lastDayUpdated = moment(state.lastUpdated).startOf("day");
@@ -73,20 +77,22 @@ export default function reducer(state = initialState, action = {}) {
       var lastUpdated = moment().valueOf();
       return {
         ...state,
-        balance: newBalance,
-        lastUpdated
+        ...save({
+          balance: newBalance,
+          lastUpdated
+        })
       };
 
     case OVERRIDE_BUDGET:
       return {
         ...state,
-        budget: action.amount
+        ...save({budget: action.amount})
       };
 
     case OVERRIDE_BALANCE:
       return {
         ...state,
-        balance: action.amount
+        ...save({balance: action.amount})
       };
 
     default:

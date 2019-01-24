@@ -47,7 +47,6 @@
     "history": "^4.7.2",
     "i": "^0.3.6",
     "immutable": "^4.0.0-rc.12",
-    "localforage": "^1.7.3",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
     "npm": "^6.5.0",
@@ -57,8 +56,6 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "redux-replicate": "^3.0.9",
-    "redux-replicate-localforage": "^3.0.2",
     "redux-thunk": "^2.3.0"
   }
 }

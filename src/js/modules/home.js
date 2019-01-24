@@ -1,4 +1,8 @@
 const SET_HOME  = 'budget-haver/home/set';
+import {initState, saveState} from 'modules/saveable';
+
+const init = initState('home');
+const save = saveState('home');
 
 export function setHome(page)
 {
@@ -8,9 +12,9 @@ export function setHome(page)
   };
 }
 
-const initialState = {
-  page: null
-};
+const initialState = init({
+  page: '/help'
+});
 
 export default function reducer(state = initialState, action={}) {
   switch (action.type) {
@@ -18,7 +22,7 @@ export default function reducer(state = initialState, action={}) {
       var newPage = action.page
       return {
         ...state,
-        page: newPage
+        ...save({page: newPage})
       };
 
     default:

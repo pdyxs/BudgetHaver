@@ -5,21 +5,6 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { setHome } from 'modules/home';
 
 class CurrentPage extends Component {
-  constructor(props) {
-    super(props);
-    if (this.props.home.page == null) {
-      setTimeout(
-        () => {
-          if (this.props.home.page == null)
-          {
-            this.props.setHome('/help');
-          }
-        },
-        2000
-      )
-    }
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname &&
         prevProps.location.pathname !=
