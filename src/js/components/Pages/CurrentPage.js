@@ -1,8 +1,33 @@
 import Pages from './';
 import React, { Component, Fragment } from "react";
-import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { setHome } from 'modules/home';
 
 class CurrentPage extends Component {
+  constructor(props) {
+    super(props);
+    if (this.props.home.page == null) {
+      setTimeout(
+        () => {
+          if (this.props.home.page == null)
+          {
+            this.props.setHome('/help');
+          }
+        },
+        2000
+      )
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname &&
+        prevProps.location.pathname !=
+       this.props.location.pathname)
+    {
+      this.props.setHome(this.props.location.pathname);
+    }
+  }
 
   render() {
     return (
@@ -13,10 +38,29 @@ class CurrentPage extends Component {
               <page.Page />
             </Route>
           ))}
+          {this.props.home.page != null &&
+            <Redirect from={'/'} exact to={this.props.home.page} push />
+          }
         </Switch>
       </div>
     );
   }
 }
 
-export default CurrentPage;
+const mapStateToProps = ({home}) => {
+  return {
+    home
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setHome: (page) => {
+      dispatch(setHome(page))
+    }
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps) (CurrentPage)
+);

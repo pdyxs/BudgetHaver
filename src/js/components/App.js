@@ -14,7 +14,7 @@ class App extends Component {
     {
       this.timerID = setInterval(
         () => this.doCheck(),
-        2000
+        1500
       );
       this.doCheck();
     }

@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 
 import budget from 'modules/budget';
 import history from 'modules/history';
+import home from 'modules/home';
 
 const key = 'superCoolStorageUnit';
 const reducerKeys = true;
@@ -14,7 +15,8 @@ const create = compose(replication)(createStore);
 
 const store = create(combineReducers({
   budget,
-  history
+  history,
+  home
 }), {}, applyMiddleware(thunk));
 
 export default store;

@@ -1,6 +1,5 @@
 // balance.js
 import moment from 'moment';
-import localforage from 'localforage';
 import { addHistoryRecord } from './history';
 
 const SPEND             = 'budget-haver/budget/spend';
@@ -52,7 +51,6 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case SPEND:
       var newBalance = state.balance - action.amount;
-      localforage.setItem('balance', newBalance);
       return {
         ...state,
         balance: newBalance

@@ -44,17 +44,6 @@ class SpendPage extends Component {
           <div className={`progress-bar bg-${spendStyle}`} role="progressbar" id="spendingBar"
             style={{width: `${percentLeft}%`}}></div>
         </div>
-        <div className="mb-3">
-          <select id="currencySelector" className="custom-select">
-            <option value="1">AUD</option>
-            <option value="0.71">USD</option>
-            <option value="2250">Colombian Peso</option>
-            <option value="0.62">Euro</option>
-          </select>
-          <div id="currencyConverter" className="text-small text-muted">
-            = <span id="convertedCurrency">32</span> AUD
-          </div>
-        </div>
         <button className={`btn btn-lg btn-${spendStyle}`}
           onClick={this.spend}
           id="spendButton" disabled={!canSpend}>Spend Money!</button>
@@ -80,3 +69,16 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(SpendPage);
+
+
+// <div className="mb-3">
+//   <select id="currencySelector" className="custom-select">
+//     <option value="1">AUD</option>
+//     <option value="0.71">USD</option>
+//     <option value="2250">Colombian Peso</option>
+//     <option value="0.62">Euro</option>
+//   </select>
+//   <div id="currencyConverter" className="text-small text-muted">
+//     = <span id="convertedCurrency">32</span> AUD
+//   </div>
+// </div>
