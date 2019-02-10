@@ -35,7 +35,7 @@ class SpendPage extends Component {
 
   render() {
     var baseAmount = this.getInBaseCurrency(this.state.spendInput);
-    var percentLeft = Math.max(0, 100 * (1 - baseAmount / this.props.balance));
+    var percentLeft = this.props.balance > 0 ? Math.max(0, 100 * (1 - baseAmount / this.props.balance)) : 0;
     var canSpend = this.state.spendInput != 0;
     var spendStyle = percentLeft > 50 ? 'success' :
                      percentLeft > 0 ? 'warning' :

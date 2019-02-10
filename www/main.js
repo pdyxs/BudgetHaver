@@ -41251,7 +41251,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       var baseAmount = this.getInBaseCurrency(this.state.spendInput);
-      var percentLeft = Math.max(0, 100 * (1 - baseAmount / this.props.balance));
+      var percentLeft = this.props.balance > 0 ? Math.max(0, 100 * (1 - baseAmount / this.props.balance)) : 0;
       var canSpend = this.state.spendInput != 0;
       var spendStyle = percentLeft > 50 ? 'success' : percentLeft > 0 ? 'warning' : 'danger';
       var formatter = Object(__WEBPACK_IMPORTED_MODULE_4_modules_currencies__["d" /* getCurrencyFormatter */])(this.props.baseCurrency);
@@ -60977,7 +60977,7 @@ function (_Component) {
         className: "container text-right"
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
         className: "small text-muted"
-      }, "v", "0.2.0", ", built on ", "10/2/2019", " at ", "17:12:53", " (UTC)"))));
+      }, "v", "0.2.0", ", built on ", "10/2/2019", " at ", "17:23:26", " (UTC)"))));
     }
   }]);
 
