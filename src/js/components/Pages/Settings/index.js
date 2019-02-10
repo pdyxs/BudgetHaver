@@ -77,7 +77,7 @@ class SettingsPage extends Component
           </ul>
           <div className="input-group mb-3">
             <select value={this.state.addingCurrency}
-              id="currencySelector" className="custom-select rounded-top-0 border-top-0"
+              id="currencySelector" className={`custom-select${this.props.favouriteCurrencies.length == 0 ? '' : ' rounded-top-0 border-top-0'}`}
               onChange={this.changeAddableCurrency}>
               <option disabled value="">Add Currency</option>
               {_.map(_.difference(_.keys(currencies), [this.props.baseCurrency, ...this.props.favouriteCurrencies]), c => (
@@ -87,7 +87,7 @@ class SettingsPage extends Component
               ))}
             </select>
             <div className="input-group-append">
-              <button disabled={this.state.addingCurrency == ""} onClick={this.addFavouriteCurrency} className="btn btn-success rounded-top-0" type="button">+</button>
+              <button disabled={this.state.addingCurrency == ""} onClick={this.addFavouriteCurrency} className={`btn btn-success${this.props.favouriteCurrencies.length == 0 ? '' : ' rounded-top-0'}`} type="button">+</button>
             </div>
           </div>
         </div>

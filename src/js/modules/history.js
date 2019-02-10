@@ -1,6 +1,7 @@
 // history.js
 import moment from 'moment';
 import {initState, saveState} from 'modules/saveable';
+import { getInBaseCurrency } from 'modules/currencies';
 
 const init = initState('history');
 const save = saveState('history');
@@ -9,10 +10,25 @@ const ADD_RECORD    = 'budget-haver/history/add-record';
 
 export function addHistoryRecord(amount)
 {
-  return {
-    type: ADD_RECORD,
-    amount
-  };
+  return (dispatch, getState) => {
+    var {currencies} = getState();
+    var transaction = [
+      {
+        currency: currencies.spendCurrency,
+        amount
+      }
+    ];
+    if (currencies.spendCurrency != currencies.baseCurrency) {
+      transaction.push({
+        currency: currencies.baseCurrency,
+        amount: getInBaseCurrency(amount, currencies.spendCurrency, currencies)
+      });
+    }
+    dispatch({
+      type: ADD_RECORD,
+      transaction
+    });
+  }
 }
 
 const initialState = init({
@@ -27,7 +43,7 @@ export default function reducer(state = initialState, action = {}) {
         ...save({
           list: [...state.list, {
             date: moment().valueOf(),
-            amount: action.amount
+            transaction: action.transaction
           }]
         })
       };

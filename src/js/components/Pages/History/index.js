@@ -1,8 +1,7 @@
-import Pages from './';
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
-import moment from 'moment';
 import _ from 'lodash';
+import HistoryRow from './HistoryRow';
 
 var currencyFormatter = new Intl.NumberFormat('en-AU', {
   style: 'currency',
@@ -20,15 +19,13 @@ class HistoryPage extends Component {
           <thead>
             <tr>
               <th className="border-top-0">When</th>
-              <th className="border-top-0">How much</th>
+              <th className="border-top-0">Amount</th>
+              <th className="border-top-0"></th>
             </tr>
           </thead>
           <tbody id="historyList">
             {list.map((record, index) => (
-              <tr key={index}>
-                <td>{moment(record.date).calendar()}</td>
-                <td>{currencyFormatter.format(record.amount)}</td>
-              </tr>
+              <HistoryRow record={record} key={index} />
             ))}
           </tbody>
         </table>
