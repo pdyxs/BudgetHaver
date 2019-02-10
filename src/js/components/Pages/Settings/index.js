@@ -52,34 +52,6 @@ class SettingsPage extends Component
     var formatter = (amt) => amt.toFixed(currencies[this.props.baseCurrency].decimal_digits);
     return (
       <div className="card-body text-left" role="tabpanel" id="settings">
-        <div className="form-group">
-          <label>Override Balance</label>
-          <LockableInput
-            type="number"
-            pattern="-?\d+\.\d*"
-            placeholder="0"
-            value={formatter(this.props.balance) || 0}
-            onSubmit={this.setBalance}
-            prepend={(
-              <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
-            )}>
-          </LockableInput>
-        </div>
-
-        <div className="form-group">
-          <label>Daily Budget</label>
-          <LockableInput
-            type="number"
-            pattern="-?\d+\.\d*"
-            placeholder="0"
-            value={formatter(this.props.budget) || 0}
-            onSubmit={this.setBudget}
-            prepend={(
-              <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
-            )}>
-          </LockableInput>
-        </div>
-
         <div className="mb-3">
           <label>Base Currency</label>
           <select value={this.props.baseCurrency}
@@ -97,15 +69,15 @@ class SettingsPage extends Component
           <label>Active Currencies</label>
           <ul className="list-group">
             {this.props.favouriteCurrencies.map(c => (
-              <li className="list-group-item p-2 d-flex justify-content-between align-items-center" key={c}>
+              <li className="list-group-item p-2 d-flex justify-content-between align-items-center rounded-bottom-0" key={c}>
                 <span>({c}) {currencies[c].name}</span>
-                <button className="badge badge-danger badge-pill" onClick={() => this.removeFavouriteCurrency(c)}>-</button>
+                <button className="badge badge-danger badge-pill border-0" onClick={() => this.removeFavouriteCurrency(c)}>-</button>
               </li>
             ))}
           </ul>
           <div className="input-group mb-3">
             <select value={this.state.addingCurrency}
-              id="currencySelector" className="custom-select"
+              id="currencySelector" className="custom-select rounded-top-0 border-top-0"
               onChange={this.changeAddableCurrency}>
               <option disabled value="">Add Currency</option>
               {_.map(_.difference(_.keys(currencies), [this.props.baseCurrency, ...this.props.favouriteCurrencies]), c => (
@@ -115,9 +87,37 @@ class SettingsPage extends Component
               ))}
             </select>
             <div className="input-group-append">
-              <button disabled={this.state.addingCurrency == ""} onClick={this.addFavouriteCurrency} className="btn btn-success" type="button">+</button>
+              <button disabled={this.state.addingCurrency == ""} onClick={this.addFavouriteCurrency} className="btn btn-success rounded-top-0" type="button">+</button>
             </div>
           </div>
+        </div>
+
+        <div className="form-group">
+          <label>Daily Budget</label>
+          <LockableInput
+            type="number"
+            pattern="-?\d+\.\d*"
+            placeholder="0"
+            value={formatter(this.props.budget) || 0}
+            onSubmit={this.setBudget}
+            prepend={(
+              <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
+            )}>
+          </LockableInput>
+        </div>
+
+        <div className="form-group">
+          <label>Override Balance</label>
+          <LockableInput
+            type="number"
+            pattern="-?\d+\.\d*"
+            placeholder="0"
+            value={formatter(this.props.balance) || 0}
+            onSubmit={this.setBalance}
+            prepend={(
+              <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
+            )}>
+          </LockableInput>
         </div>
       </div>
     );

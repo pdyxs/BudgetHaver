@@ -5,15 +5,19 @@
 .rounded-bottom-0,
 .rounded-bottom-0.input-group .input-group-text,
 .rounded-bottom-0.input-group .form-control {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .rounded-top-0,
 .rounded-top-0.input-group .input-group-text,
 .rounded-top-0.input-group .form-control {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.border-top-0 {
+  border-top: 0 !important;
 }
 
 .unlock-edit-button .unlocked {
