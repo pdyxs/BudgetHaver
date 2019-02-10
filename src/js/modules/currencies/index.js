@@ -14,11 +14,12 @@ const REMOVE_FAVOURITE_CURRENCY = 'budget-haver/currencies/remove-favourite-curr
 
 export const currencies = Currencies;
 
-export function getCurrencyFormatter(currency)
+export function getCurrencyFormatter(currency, useGrouping = true)
 {
   var formatter = new Intl.NumberFormat('en-AU', {
     minimumFractionDigits: 0,
-    maximumFractionDigits: currencies[currency].decimal_digits
+    maximumFractionDigits: currencies[currency].decimal_digits,
+    useGrouping
   });
   return (number, includeSymbol = true) =>
     (includeSymbol ? currencies[currency].symbol_native : '') +

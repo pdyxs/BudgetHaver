@@ -13,7 +13,7 @@ export function setHome(page)
 }
 
 const initialState = init({
-  page: '/spend'
+  page: '/setup'
 });
 
 export default function reducer(state = initialState, action={}) {

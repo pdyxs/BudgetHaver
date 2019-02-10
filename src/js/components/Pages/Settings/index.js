@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import LockableInput from 'components/generics/LockableInput';
 import { connect } from 'react-redux';
 import { overrideBalance, overrideBudget } from 'modules/budget';
+import { Link } from 'react-router-dom';
 import { getInCurrency, getCurrencyFormatter, setBaseCurrency, currencies, addFavouriteCurrency, removeFavouriteCurrency } from 'modules/currencies';
 
 class SettingsPage extends Component
@@ -49,7 +50,7 @@ class SettingsPage extends Component
   }
 
   render() {
-    var formatter = (amt) => amt.toFixed(currencies[this.props.baseCurrency].decimal_digits);
+    var formatter = (amt) => amt ? getCurrencyFormatter(this.props.baseCurrency, false)(amt, false) : "";
     return (
       <div className="card-body text-left" role="tabpanel" id="settings">
         <div className="mb-3">
@@ -118,6 +119,10 @@ class SettingsPage extends Component
               <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
             )}>
           </LockableInput>
+        </div>
+
+        <div className="w-100">
+          <Link className="btn btn-outline-primary w-100" to="/setup">Run Setup Again</Link>
         </div>
       </div>
     );

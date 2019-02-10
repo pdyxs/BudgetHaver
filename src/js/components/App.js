@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import './App.scss';
 import MainDisplay from './MainDisplay';
 import Menu from './Menu';
 import CurrentPage from './Pages/CurrentPage';
 import { connect } from 'react-redux';
 import { checkIncome } from 'modules/budget';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import moment from 'moment';
+import Setup from './Setup';
 
 class App extends Component {
   componentDidUpdate(prevProps) {
@@ -14,7 +16,7 @@ class App extends Component {
     {
       this.timerID = setInterval(
         () => this.doCheck(),
-        1500
+        5000
       );
       this.doCheck();
     }
@@ -31,14 +33,21 @@ class App extends Component {
   render() {
       return (
         <div className="container">
-          <div className="text-center">
-            <h1 className="text-small text-muted my-3">
-              Budget Haver
-            </h1>
-            <MainDisplay />
-          </div>
-          <Menu />
-          <CurrentPage />
+          <Switch>
+            <Route path="/setup" exact component={Setup} />
+            <Route>
+              <Fragment>
+                <div className="text-center">
+                  <h1 className="text-small text-muted my-3">
+                    Budget Haver
+                  </h1>
+                  <MainDisplay />
+                </div>
+                <Menu />
+                <CurrentPage />
+              </Fragment>
+            </Route>
+          </Switch>
           <footer className="footer fixed-bottom pb-2">
             <div className="container text-right">
               <span className="small text-muted">v{APP_VERSION_NUMBER}, built on {BUILD_DATE} at {BUILD_TIMESTAMP} (UTC)</span>
@@ -63,4 +72,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);

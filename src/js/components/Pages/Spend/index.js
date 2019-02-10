@@ -13,8 +13,9 @@ class SpendPage extends Component {
   }
 
   spendInputChanged = (evt) => {
+    var number = Number(evt.target.value);
     this.setState({
-      spendInput: Number(evt.target.value)
+      spendInput: number != 0 ? number : ''
     });
   }
 
