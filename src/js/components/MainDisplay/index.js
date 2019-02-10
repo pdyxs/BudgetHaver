@@ -1,19 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
+import { currencies, getCurrencyFormatter } from 'modules/currencies';
 
 class MainDisplay extends Component {
 
   render() {
-    var balanceFormatter = new Intl.NumberFormat('en-AU', {
-      style: 'currency',
-      currency: 'AUD',
-      minimumFractionDigits: 2
-    });
-    var budgetFormatter = new Intl.NumberFormat('en-AU', {
-      style: 'currency',
-      currency: 'AUD',
-      minimumFractionDigits: 0
-    });
+    var formatter = getCurrencyFormatter(this.props.baseCurrency);
     return (
       <Fragment>
         <div className="card text-light bg-info">
@@ -21,20 +13,24 @@ class MainDisplay extends Component {
             <h3 className="card-title mb-0">You have</h3>
           </div>
           <div className="card-body">
-            <h2 className="display-3">{balanceFormatter.format(this.props.budget.balance)}</h2>
+            <h2 className="display-3">
+              <span className="small">{currencies[this.props.baseCurrency].symbol_native}</span>
+              {formatter(this.props.balance, false)}
+            </h2>
           </div>
         </div>
         <div className="text-small text-muted">
-          You get {budgetFormatter.format(this.props.budget.budget)} per day
+          You get {formatter(this.props.budget)} per day
         </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = ({budget}) => {
+const mapStateToProps = ({budget, currencies}) => {
   return {
-    budget
+    ...budget,
+    ...currencies
   }
 }
 

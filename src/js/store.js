@@ -4,8 +4,10 @@ import thunk from 'redux-thunk';
 import budget from 'modules/budget';
 import history from 'modules/history';
 import home from 'modules/home';
+import currencies from 'modules/currencies';
 
 const store = createStore(combineReducers({
+  currencies,
   budget,
   history,
   home
