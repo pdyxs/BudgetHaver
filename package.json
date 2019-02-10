@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "Budget Haver",
   "scripts": {
+    "build-icons": "cd windowdresser && npm install && node windowdresser.js && cp -R dist/app ../img",
     "build-web": "webpack",
     "build-mobile": "webpack",
     "start": "webpack --watch",
