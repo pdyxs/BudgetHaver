@@ -46,9 +46,9 @@ export function overrideBudget(amount)
 }
 
 const initialState = init({
-  balance: 200,
+  balance: 0,
   lastUpdated: moment().valueOf(),
-  budget: 50
+  budget: 0
 });
 
 export default function reducer(state = initialState, action = {}) {
