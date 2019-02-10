@@ -3,9 +3,10 @@
   "version": "0.2.0",
   "description": "Budget Haver",
   "scripts": {
-    "build": "webpack",
+    "build-web": "webpack",
+    "build-mobile": "webpack",
     "start": "webpack --watch",
-    "deploy": "webpack && surge ./dist"
+    "deploy-web": "webpack && surge ./www"
   },
   "repository": {
     "type": "git",
