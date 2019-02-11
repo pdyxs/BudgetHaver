@@ -8,7 +8,7 @@
         Paul Sztajer
     </author>
     <content src="index.html" />
-    <icon src="icon" />
+    <icon src="img/icon/ios/icon.png" />
     <platform name="ios">
       <icon src="img/icon/ios/icon-40.png" width="40" height="40" />
       <icon src="img/icon/ios/icon-40@2x.png" width="80" height="80" />
