@@ -2,6 +2,7 @@
 import moment from 'moment';
 import { addHistoryRecord } from './history';
 import {initState, saveState} from 'modules/saveable';
+import { getInBaseCurrency } from 'modules/currencies';
 
 const init = initState('budget');
 const save = saveState('budget');
@@ -13,11 +14,12 @@ const OVERRIDE_BALANCE  = 'budget-haver/budget/override-balance';
 
 export function spendMoney(amount)
 {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(addHistoryRecord(amount));
+    var {currencies} = getState();
     dispatch({
       type: SPEND,
-      amount
+      amount: getInBaseCurrency(amount, currencies.spendCurrency, currencies)
     });
   }
 }
