@@ -10,16 +10,12 @@ import moment from 'moment';
 import Setup from './Setup';
 
 class App extends Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps.budget.balance == null &&
-      this.props.budget.balance != null)
-    {
-      this.timerID = setInterval(
-        () => this.doCheck(),
-        5000
-      );
-      this.doCheck();
-    }
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.doCheck(),
+      5000
+    );
+    this.doCheck();
   }
 
   componentWillUnmount() {
@@ -27,7 +23,10 @@ class App extends Component {
   }
 
   doCheck() {
-    this.props.checkIncome();
+    if (this.props.balance)
+    {
+      this.props.checkIncome();
+    }
   }
 
   render() {
@@ -60,7 +59,7 @@ class App extends Component {
 
 const mapStateToProps = ({budget}) => {
   return {
-    budget
+    ...budget
   };
 }
 

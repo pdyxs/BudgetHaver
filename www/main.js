@@ -61248,6 +61248,10 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Setup__ = __webpack_require__(614);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61289,16 +61293,14 @@ function (_Component) {
   }
 
   _createClass(App, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this = this;
 
-      if (prevProps.budget.balance == null && this.props.budget.balance != null) {
-        this.timerID = setInterval(function () {
-          return _this.doCheck();
-        }, 5000);
-        this.doCheck();
-      }
+      this.timerID = setInterval(function () {
+        return _this.doCheck();
+      }, 5000);
+      this.doCheck();
     }
   }, {
     key: "componentWillUnmount",
@@ -61308,7 +61310,9 @@ function (_Component) {
   }, {
     key: "doCheck",
     value: function doCheck() {
-      this.props.checkIncome();
+      if (this.props.balance) {
+        this.props.checkIncome();
+      }
     }
   }, {
     key: "render",
@@ -61329,7 +61333,7 @@ function (_Component) {
         className: "container text-right"
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
         className: "small text-muted"
-      }, "v", "0.2.0", ", built on ", "10/2/2019", " at ", "22:36:23", " (UTC)"))));
+      }, "v", "0.2.0", ", built on ", "11/2/2019", " at ", "19:34:48", " (UTC)"))));
     }
   }]);
 
@@ -61338,9 +61342,7 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(_ref) {
   var budget = _ref.budget;
-  return {
-    budget: budget
-  };
+  return _objectSpread({}, budget);
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
