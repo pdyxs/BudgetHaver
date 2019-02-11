@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="wtf.pdyxs.budgetreact" version="0.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Budget Haver React</name>
+<widget id="wtf.pdyxs.budgethaver" version="0.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Budget Haver</name>
     <description>
-        Budget Haver React
+        Budget Haver
     </description>
     <author email="talk@pdyxs.wtf" href="http://pdyxs.wtf">
         Paul Sztajer
     </author>
     <content src="index.html" />
-    <icon src="img/icon/ios/icon.png" />
+    <icon src="img/icon/ios/icon-72.png" />
     <platform name="ios">
       <icon src="img/icon/ios/icon-40.png" width="40" height="40" />
       <icon src="img/icon/ios/icon-40@2x.png" width="80" height="80" />
