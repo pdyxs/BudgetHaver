@@ -46,7 +46,7 @@ class SpendPage extends Component {
       <div className="card-body text-center" role="tabpanel" id="spend" aria-labelledby="spend-tab">
         <div className="input-group rounded-bottom-0 mt-4">
           <div className="input-group-prepend">
-            <span className="input-group-text">$</span>
+            <span className="input-group-text">{currencies[this.props.spendCurrency].symbol_native}</span>
           </div>
           <input id="spendMoneyInput" type="number" pattern="-?\d+\.\d*"
             className="form-control" placeholder="0.00"

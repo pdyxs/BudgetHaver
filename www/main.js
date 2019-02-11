@@ -41740,7 +41740,7 @@ function (_Component) {
         className: "input-group-prepend"
       }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("span", {
         className: "input-group-text"
-      }, "$")), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
+      }, __WEBPACK_IMPORTED_MODULE_4_modules_currencies__["b" /* currencies */][this.props.spendCurrency].symbol_native)), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
         id: "spendMoneyInput",
         type: "number",
         pattern: "-?\\d+\\.\\d*",
@@ -61333,7 +61333,7 @@ function (_Component) {
         className: "container text-right"
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
         className: "small text-muted"
-      }, "v", "0.2.0", ", built on ", "11/2/2019", " at ", "19:34:48", " (UTC)"))));
+      }, "v", "0.2.0", ", built on ", "11/2/2019", " at ", "19:45:47", " (UTC)"))));
     }
   }]);
 
