@@ -3,12 +3,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import HistoryRow from './HistoryRow';
 
-var currencyFormatter = new Intl.NumberFormat('en-AU', {
-  style: 'currency',
-  currency: 'AUD',
-  minimumFractionDigits: 2
-});
-
 class HistoryPage extends Component {
 
   render() {
