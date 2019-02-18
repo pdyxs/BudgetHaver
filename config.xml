@@ -58,4 +58,6 @@
     </platform>
     <access origin="*" />
     <engine name="ios" spec="^4.5.5" />
+    <engine name="browser" spec="~5.0.4" />
+    <plugin name="cordova-plugin-analytics" spec="2.0.0" />
 </widget>
