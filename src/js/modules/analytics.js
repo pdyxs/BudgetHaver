@@ -40,7 +40,7 @@ export function setLevel(level)
 }
 
 const initialState = init({
-  trackingLevel: 'none'
+  trackingLevel: 'budget-amounts'
 });
 
 export default function reducer(state = initialState, action={}) {

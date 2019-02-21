@@ -1,6 +1,16 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDollarSign, faHistory, faCog, faQuestion, faTimes } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faDollarSign,
+  faHistory,
+  faCog,
+  faQuestion,
+  faTimes
+} from '@fortawesome/pro-regular-svg-icons';
+import {
+  faStar,
+  faCaretDown
+} from '@fortawesome/free-solid-svg-icons';
 
 import SpendPage from './Spend';
 import SpendHelp from './Spend/help.md';
@@ -17,6 +27,10 @@ library.add(faTimes);
 library.add(faDollarSign);
 library.add(faHistory);
 library.add(faCog);
+
+library.add(faStar);
+library.add(faCaretDown);
+// library.add(faStarExclamation);
 
 export default [
   {

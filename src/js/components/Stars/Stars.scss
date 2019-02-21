@@ -1,0 +1,56 @@
+$stars-height: 85vh;
+
+.fader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s;
+  &.on {
+    position: fixed;
+    z-index: 20;
+    opacity: 0.5;
+    visibility: visible;
+    transition: opacity 0.5s ease;
+  }
+}
+
+.stars {
+  position: absolute;
+  top: -$stars-height;
+  left: 0;
+  height: $stars-height;
+  transition: all 0.5s ease;
+
+  &.expanded {
+    position: fixed;
+    z-index: 50;
+    top: 0vh;
+    transition: all 0.5s ease;
+  }
+
+  .container {
+    scroll-behavior: auto;
+    overflow-y:scroll;
+    max-height:$stars-height;
+  }
+}
+
+.banner {
+  position: absolute;
+  right: 10px;
+  top: $stars-height;
+
+  .icon {
+    font-size: 1.45rem;
+  }
+
+  .triangle {
+    position: absolute;
+    bottom: -34px;
+    font-size: 58px;
+    left: -1px;
+  }
+}
