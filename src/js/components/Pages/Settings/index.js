@@ -31,7 +31,7 @@ class SettingsPage extends Component
 {
   render() {
     return (
-      <div className="card-body text-left" role="tabpanel" id="settings">
+      <div className="card-body text-left">
         <ul className="nav nav-pills mb-3" style={{"marginTop": "-1rem", "marginLeft": "-1rem"}}>
           {pages.map(page => (
             <li className="nav-item" key={page.id}>

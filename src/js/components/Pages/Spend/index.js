@@ -43,7 +43,7 @@ class SpendPage extends Component {
                                         'danger';
     var formatter = getCurrencyFormatter(this.props.baseCurrency);
     return (
-      <div className="card-body text-center" role="tabpanel" id="spend" aria-labelledby="spend-tab">
+      <div className="card-body text-center">
         <div className="input-group rounded-bottom-0 mt-4">
           <div className="input-group-prepend">
             <span className="input-group-text">{currencies[this.props.spendCurrency].symbol_native}</span>

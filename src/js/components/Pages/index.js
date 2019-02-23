@@ -5,7 +5,8 @@ import {
   faHistory,
   faCog,
   faQuestion,
-  faTimes
+  faTimes,
+  faInfo
 } from '@fortawesome/pro-regular-svg-icons';
 import {
   faStar,
@@ -21,12 +22,15 @@ import HistoryHelp from './History/help.md';
 import SettingsPage from './Settings';
 import SettingsHelp from './Settings/help.md';
 
+import InfoPage from './Info';
+
 library.add(faQuestion);
 library.add(faTimes);
 
 library.add(faDollarSign);
 library.add(faHistory);
 library.add(faCog);
+library.add(faInfo);
 
 library.add(faStar);
 library.add(faCaretDown);
@@ -54,5 +58,11 @@ export default [
     icon: 'cog',
     Page: SettingsPage,
     Help: SettingsHelp
+  },
+  {
+    id: 'info',
+    name: 'Info',
+    icon: 'info',
+    Page: InfoPage
   }
 ];

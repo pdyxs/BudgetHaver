@@ -57,7 +57,7 @@ class CurrentPage extends Component {
                     </div>
                   </div>
                   :
-                  <div  className="btn btn-link position-absolute"
+                  page.Help && <div  className="btn btn-link position-absolute"
                         style={{top: '5px', right: '5px'}}
                         onClick={this.openHelp}>
                     <FontAwesomeIcon icon={['far', 'question']} />

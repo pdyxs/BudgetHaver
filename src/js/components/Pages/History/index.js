@@ -8,7 +8,7 @@ class HistoryPage extends Component {
   render() {
     var list = _.reverse(_.takeRight(this.props.history.list, 5));
     return (
-      <div className="card-body text-left py-0 px-0" role="tabpanel" id="history" aria-labelledby="history-tab">
+      <div className="card-body text-left py-0 px-0">
         <table className="table m-0">
           <thead>
             <tr>

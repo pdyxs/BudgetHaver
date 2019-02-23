@@ -27,7 +27,7 @@ class Stars extends Component {
           }>
         </div>
         <div className={
-            classnames("stars", "w-100", "border-bottom", "border-primary", "bg-light",
+            classnames("stars", "w-100", "border-bottom", "border-primary", "bg-dark", "text-light",
                 {"expanded": this.state.expanded})
           }>
           <div className="container py-3">
@@ -36,6 +36,7 @@ class Stars extends Component {
           <div className="px-1 pt-2 bg-primary banner"
                onClick={this.toggleExpanded}>
             <FontAwesomeIcon className="text-light icon" icon={['fas', 'star']} />
+            <div className="count text-primary font-weight-bold">3</div>
             <FontAwesomeIcon className="text-primary triangle" icon={['fas', 'caret-down']} />
           </div>
         </div>
