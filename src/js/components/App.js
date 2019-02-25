@@ -60,7 +60,6 @@ class App extends Component {
               </div>
               <Menu />
               <CurrentPage />
-              <Stars />
             </Fragment>
           </Route>
         </Switch>
