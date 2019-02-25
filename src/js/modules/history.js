@@ -6,7 +6,7 @@ import { getInBaseCurrency } from 'modules/currencies';
 const init = initState('history');
 const save = saveState('history');
 
-const ADD_RECORD    = 'budget-haver/history/add-record';
+export const ADD_RECORD    = `${PACKAGE_NAME}/history/add-record`;
 
 export function addHistoryRecord(amount)
 {

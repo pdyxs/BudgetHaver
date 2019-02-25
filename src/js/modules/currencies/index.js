@@ -7,10 +7,10 @@ import _ from 'lodash';
 const init = initState('budget');
 const save = saveState('budget');
 
-const SET_BASE_CURRENCY = 'budget-haver/currencies/set-base-currency';
-const SET_SPEND_CURRENCY = 'budget-haver/currencies/set-spend-currency';
-const ADD_FAVOURITE_CURRENCY = 'budget-haver/currencies/add-favourite-currency';
-const REMOVE_FAVOURITE_CURRENCY = 'budget-haver/currencies/remove-favourite-currency';
+export const SET_BASE_CURRENCY = `${PACKAGE_NAME}/currencies/set-base-currency`;
+export const SET_SPEND_CURRENCY = `${PACKAGE_NAME}/currencies/set-spend-currency`;
+export const ADD_FAVOURITE_CURRENCY = `${PACKAGE_NAME}/currencies/add-favourite-currency`;
+export const REMOVE_FAVOURITE_CURRENCY = `${PACKAGE_NAME}/currencies/remove-favourite-currency`;
 
 export const currencies = Currencies;
 

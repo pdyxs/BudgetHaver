@@ -57,7 +57,6 @@
         <splash height="480" platform="ios" src="res/screens/ios/Default~iphone.png" width="320" />
     </platform>
     <access origin="*" />
-    <plugin name="cordova-plugin-analytics" spec="2.0.0" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="^7.1.4" />

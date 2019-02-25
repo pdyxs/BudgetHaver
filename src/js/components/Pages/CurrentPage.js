@@ -2,7 +2,7 @@ import Pages from './';
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import { setHome } from 'modules/home';
+import { setHome, toggleHelp } from 'modules/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactMarkdown from 'react-markdown';
 
@@ -15,12 +15,14 @@ class CurrentPage extends Component {
   }
 
   openHelp = () => {
+    this.props.toggleHelp(true);
     this.setState({
       isInHelp: true
     });
   }
 
   closeHelp = () => {
+    this.props.toggleHelp(false);
     this.setState({
       isInHelp: false
     });
@@ -67,8 +69,8 @@ class CurrentPage extends Component {
               </Fragment>
             </Route>
           ))}
-          {this.props.home.page != null &&
-            <Redirect from={'/'} exact to={this.props.home.page} push />
+          {this.props.navigation.home != null &&
+            <Redirect from={'/'} exact to={this.props.navigation.home} push />
           }
         </Switch>
       </div>
@@ -76,17 +78,16 @@ class CurrentPage extends Component {
   }
 }
 
-const mapStateToProps = ({home}) => {
+const mapStateToProps = ({navigation}) => {
   return {
-    home
+    navigation
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setHome: (page) => {
-      dispatch(setHome(page))
-    }
+    setHome: (page) => dispatch(setHome(page)),
+    toggleHelp: (newState) => dispatch(toggleHelp(newState))
   }
 }
 

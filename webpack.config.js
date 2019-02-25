@@ -160,6 +160,7 @@ module.exports = function makeWebpackConfig() {
 
   config.plugins.push(
     new webpack.DefinePlugin({
+      'PACKAGE_NAME': JSON.stringify(package.name),
       'APP_VERSION_NUMBER': JSON.stringify(package.version),
       'BUILD_DATE': JSON.stringify(buildDate),
       'BUILD_TIMESTAMP': JSON.stringify(buildTimestamp),

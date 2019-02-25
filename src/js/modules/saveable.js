@@ -5,6 +5,7 @@ export function initState(name) {
     return _.mapValues(initialState, (val, key) => {
       var item = localStorage.getItem(`${name}/${key}`);
       if (item) return JSON.parse(item);
+      localStorage.setItem(`${name}/${key}`, JSON.stringify(val));
       return val;
     });
   };

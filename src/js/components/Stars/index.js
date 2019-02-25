@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { toggleStars } from 'modules/navigation';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,6 +16,7 @@ class Stars extends Component {
   }
 
   toggleExpanded = () => {
+    this.props.toggleStars(!this.state.expanded);
     this.setState({
       expanded: !this.state.expanded
     });
@@ -45,4 +48,16 @@ class Stars extends Component {
   }
 }
 
-export default Stars;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleStars: (newState) => {
+      dispatch(toggleStars(newState))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+) (Stars);

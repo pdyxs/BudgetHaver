@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import Setup from './Setup';
 import Stars from './Stars';
+import { startSession, endSession } from 'modules/navigation';
 
 class App extends Component {
   componentDidMount() {
@@ -18,11 +19,24 @@ class App extends Component {
       5000
     );
     this.doCheck();
+    this.props.startSession();
+    this.setupBeforeUnloadListener();
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
+
+  doBeforeUnload = () => {
+    this.props.endSession();
+  }
+
+  setupBeforeUnloadListener = () => {
+    window.addEventListener("beforeunload", (ev) => {
+        ev.preventDefault();
+        return this.doBeforeUnload();
+    });
+  };
 
   doCheck() {
     if (this.props.balance)
@@ -69,9 +83,9 @@ const mapStateToProps = ({budget}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkIncome: () => {
-      dispatch(checkIncome())
-    }
+    checkIncome: () => dispatch(checkIncome()),
+    startSession: () => dispatch(startSession()),
+    endSession: () => dispatch(endSession())
   }
 }
 

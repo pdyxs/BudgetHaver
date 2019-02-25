@@ -7,10 +7,10 @@ import { getInBaseCurrency } from 'modules/currencies';
 const init = initState('budget');
 const save = saveState('budget');
 
-const SPEND             = 'budget-haver/budget/spend';
-const CHECK             = 'budget-haver/budget/check';
-const OVERRIDE_BUDGET   = 'budget-haver/budget/override-budget';
-const OVERRIDE_BALANCE  = 'budget-haver/budget/override-balance';
+export const SPEND             = `${PACKAGE_NAME}/budget/spend`;
+export const CHECK             = `${PACKAGE_NAME}/budget/check`;
+export const OVERRIDE_BUDGET   = `${PACKAGE_NAME}/budget/override-budget`;
+export const OVERRIDE_BALANCE  = `${PACKAGE_NAME}/budget/override-balance`;
 
 export function spendMoney(amount)
 {
