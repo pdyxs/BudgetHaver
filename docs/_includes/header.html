@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Budget Haver</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="description" content="Budget Haver: A minimalistic budgeting app">
+  <meta name="keywords" content="App, Productivity, Budgeting, Finance">
+  <meta name="author" content="Paul Sztajer">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-87DrmpqHRiY8hPLIr7ByqhPIywuSsjuQAfMXAE0sMUpY3BM7nXjf+mLIUSvhDArs" crossorigin="anonymous">
+
+  {% if page.noindex %}
+    <meta name="robots" content="noindex">
+  {% endif %}
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/style/style.css">
+
+  <!-- Global Site Tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107758570-1"></script>
+  <script>
+    if (window.location.origin.includes('budgethaver.app'))
+    {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-107758570-1');
+    }
+  </script>
+
+  {% seo title=false %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="/js/jquery-3.2.1.slim.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/moment.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>

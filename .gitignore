@@ -2,3 +2,6 @@ platforms
 plugins
 node_modules
 dist
+docs/_site
+docs/.sass-cache
+docs/.jekyll-metadata
