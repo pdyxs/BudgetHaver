@@ -66,14 +66,22 @@ export default function reducer(state = initialState, action={}) {
       }
 
     case COMPLETE_INTERRUPT:
-      return {
+      var ret = {
         ...state,
         ...save({
           active: _.tail(state.active),
-          complete: _.set(state.complete, state.complete[state.active[0].type] + 1)
+          complete: _.set(state.complete, state.active[0].type, state.complete[state.active[0].type] + 1)
         })
       };
-
+      var completedAction = _.find(interruptTypes, {id: state.active[0].type})?.completedAction;
+      if (completedAction) {
+        if (_.isFunction(completedAction)) {
+          return loop(ret, Cmd.action(completedAction()));
+        } else {
+          return loop(ret, Cmd.action(completedAction));
+        }
+      }
+      return ret;
     default:
       return loop(state,
         Cmd.run(

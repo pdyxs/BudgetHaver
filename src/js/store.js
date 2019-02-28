@@ -8,11 +8,13 @@ import currencies from 'modules/currencies';
 import analytics from 'modules/analytics';
 import achievements from 'modules/achievements';
 import interrupts from 'modules/interrupts';
+import stars from 'modules/stars';
 
 import { combineReducers, install } from 'redux-loop';
 
 const store = createStore(combineReducers({
   interrupts,
+  stars,
   achievements,
   analytics,
   currencies,

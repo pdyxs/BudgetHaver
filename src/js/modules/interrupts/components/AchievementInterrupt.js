@@ -10,17 +10,18 @@ class AchievementInterrupts extends Component {
     return (
       <div className="w-100 h-100 card align-middle text-center">
         <div className="my-auto">
-          <p className="lead">Congratulations! You are a </p>
+          <p className="lead">Congratulations! You've gained the </p>
           <p className="display-4">
             <FontAwesomeIcon className="d-block mx-auto" icon={['fas', 'star']} />
             {achievement.name}
           </p>
-          <p className="lead">{achievement.description}</p>
-            <div className="mt-5">
-              <button onClick={this.props.onComplete}
-                className="btn btn-primary">Great!
-              </button>
-            </div>
+          <p className="lead">achievement</p>
+          <p className="mt-4 lead">{achievement.description}</p>
+          <div className="mt-5">
+            <button onClick={this.props.onComplete} className="btn btn-primary">
+              Great!
+            </button>
+          </div>
         </div>
       </div>
     );

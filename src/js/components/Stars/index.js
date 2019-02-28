@@ -9,30 +9,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Stars.scss';
 
 class Stars extends Component {
-  constructor() {
-    super();
-    this.state = {
-      expanded: false
-    };
-  }
-
   toggleExpanded = () => {
-    this.props.toggleStars(!this.state.expanded);
-    this.setState({
-      expanded: !this.state.expanded
-    });
+    this.props.toggleStars(!this.props.areStarsOpen);
   }
 
   render() {
     return (
       <Fragment>
         <div className={
-            classnames("w-100", "h-100", "fader", {"on": this.state.expanded})
-          }>
+            classnames("w-100", "h-100", "fader", {"on": this.props.areStarsOpen})
+          }
+          onClick={this.toggleExpanded}>
         </div>
         <div className={
             classnames("stars", "w-100", "border-bottom", "border-primary", "bg-dark", "text-light",
-                {"expanded": this.state.expanded})
+                {"expanded": this.props.areStarsOpen})
           }>
           <div className="container py-3">
             <h2 className="display-5 text-center">Stars</h2>
@@ -56,8 +47,9 @@ class Stars extends Component {
   }
 }
 
-const mapStateToProps = ({achievements}) => ({
-  achievements
+const mapStateToProps = ({achievements, navigation: {areStarsOpen}}) => ({
+  achievements,
+  areStarsOpen
 });
 
 const mapDispatchToProps = dispatch => {

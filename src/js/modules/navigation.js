@@ -46,9 +46,12 @@ export function endSession()
   };
 }
 
-const initialState = init({
-  home: '/setup'
-});
+const initialState = {
+  ...init({
+    home: '/setup'
+  }),
+  areStarsOpen: false
+};
 
 export default function reducer(state = initialState, action={}) {
   switch (action.type) {
@@ -57,6 +60,16 @@ export default function reducer(state = initialState, action={}) {
       return {
         ...state,
         ...save({home: newPage})
+      };
+    case OPEN_STARS:
+      return {
+        ...state,
+        areStarsOpen: true
+      };
+    case CLOSE_STARS:
+      return {
+        ...state,
+        areStarsOpen: false
       };
     default:
       return state;

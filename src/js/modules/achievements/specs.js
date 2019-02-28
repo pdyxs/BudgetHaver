@@ -7,7 +7,7 @@ const achievements = [
     description: "Logged 3 spends",
     type: types.spendCount,
     args: {
-      amount: 1
+      amount: 3
     }
   },
   {
