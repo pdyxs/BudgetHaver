@@ -7,10 +7,12 @@ import navigation from 'modules/navigation';
 import currencies from 'modules/currencies';
 import analytics from 'modules/analytics';
 import achievements from 'modules/achievements';
+import interrupts from 'modules/interrupts';
 
 import { combineReducers, install } from 'redux-loop';
 
 const store = createStore(combineReducers({
+  interrupts,
   achievements,
   analytics,
   currencies,

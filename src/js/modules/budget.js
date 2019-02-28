@@ -8,7 +8,8 @@ const init = initState('budget');
 const save = saveState('budget');
 
 export const SPEND             = `${PACKAGE_NAME}/budget/spend`;
-export const CHECK             = `${PACKAGE_NAME}/budget/check`;
+export const ADD_BUDGET        = `${PACKAGE_NAME}/budget/add-budget`
+export const CHECKED           = `${PACKAGE_NAME}/budget/checked`;
 export const OVERRIDE_BUDGET   = `${PACKAGE_NAME}/budget/override-budget`;
 export const OVERRIDE_BALANCE  = `${PACKAGE_NAME}/budget/override-balance`;
 
@@ -26,6 +27,24 @@ export function spendMoney(amount)
 
 export function checkIncome()
 {
+  return (dispatch, getState) => {
+    var {budget} = getState();
+    if (budget.lastUpdated == null) {
+      var lastUpdated = moment().valueOf();
+      dispatch({type: CHECKED});
+      return;
+    }
+    var lastDayUpdated = moment(budget.lastUpdated).startOf("day");
+    var daysSince = moment().startOf("day").diff(lastDayUpdated, 'days');
+    if (daysSince == 0) {
+      dispatch({type: CHECKED});
+      return;
+    }
+    dispatch({
+      type: ADD_BUDGET,
+      days: daysSince
+    });
+  }
   return {
     type: CHECK
   };
@@ -62,20 +81,15 @@ export default function reducer(state = initialState, action = {}) {
         ...save({balance: newBalance})
       };
 
-    case CHECK:
-      if (state.lastUpdated == null) {
-        var lastUpdated = moment().valueOf();
-        return {
-          ...state,
-          ...save({lastUpdated})
-        }
+    case CHECKED:
+      var lastUpdated = moment().valueOf();
+      return {
+        ...state,
+        ...save({lastUpdated})
       }
-      var lastDayUpdated = moment(state.lastUpdated).startOf("day");
-      var daysSince = moment().startOf("day").diff(lastDayUpdated, 'days');
-      var newBalance = state.balance;
-      if (daysSince != 0) {
-        newBalance = newBalance + state.budget * daysSince;
-      }
+
+    case ADD_BUDGET:
+      var newBalance = state.balance + state.budget * action.days
       var lastUpdated = moment().valueOf();
       return {
         ...state,

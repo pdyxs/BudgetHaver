@@ -12,6 +12,10 @@ import Setup from './Setup';
 import Stars from './Stars';
 import { startSession, endSession } from 'modules/navigation';
 
+import Interrupts from 'modules/interrupts/Interrupts';
+
+import { isUnlocked } from 'modules/unlockables';
+
 class App extends Component {
   componentDidMount() {
     this.timerID = setInterval(
@@ -60,6 +64,10 @@ class App extends Component {
               </div>
               <Menu />
               <CurrentPage />
+              {isUnlocked.stars(this.props) &&
+                <Stars />
+              }
+              <Interrupts />
             </Fragment>
           </Route>
         </Switch>
@@ -74,9 +82,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({budget}) => {
+const mapStateToProps = ({budget, achievements, interrupts}) => {
   return {
-    ...budget
+    ...budget,
+    achievements,
+    interrupts
   };
 }
 

@@ -1,4 +1,4 @@
-import {SPEND} from 'modules/budget';
+import {SPEND, ADD_BUDGET} from 'modules/budget';
 import moment from 'moment';
 
 const achievementTypes = {
@@ -28,9 +28,26 @@ const achievementTypes = {
           } else {
             dayCount++;
           }
+          if (j == 0 && dayCount < countPerDay) {
+            return false;
+          }
         }
+        if (j < 0 && i < days - 1) return false;
       }
       return true;
+    }
+  },
+  saveRatio: {
+    triggers: [ADD_BUDGET],
+    check: ({ratio}, {budget: {balance, budget}}) => {
+      var r = balance / budget;
+      return (r - 1) < ratio && r >= ratio;
+    }
+  },
+  returnFromNegative: {
+    triggers: [ADD_BUDGET],
+    check: (args, {budget: {balance, budget}}) => {
+      return balance < budget;
     }
   }
 }

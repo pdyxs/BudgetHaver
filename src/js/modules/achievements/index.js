@@ -4,7 +4,7 @@ import moment from 'moment';
 import {initState, saveState} from 'modules/saveable';
 import { loop, Cmd } from 'redux-loop';
 
-const MARK_ACHIEVED   = `${PACKAGE_NAME}/achievements/mark-achieved`;
+export const MARK_ACHIEVED   = `${PACKAGE_NAME}/achievements/mark-achieved`;
 
 const init = initState('achievements');
 const save = saveState('achievements');
@@ -13,6 +13,10 @@ function getAchievementsTriggeredBy(triggeringAction) {
   return _.filter(achievementSpecs, spec =>
     _.includes(spec.type.triggers, triggeringAction)
   );
+}
+
+export function achievementCount({achievements}) {
+  return _.filter(achievements, a => a.achieved).length;
 }
 
 function checkAchievements(achievementsToCheck = achievementSpecs)
@@ -32,7 +36,7 @@ function checkAchievements(achievementsToCheck = achievementSpecs)
   }
 }
 
-const initialState = init(
+const initialState = save(
   _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
     achieved: false
   })).value()

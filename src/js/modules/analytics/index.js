@@ -3,6 +3,7 @@ export const SET_LEVEL  = `${PACKAGE_NAME}/analytics/set-level`;
 import {initState, saveState} from 'modules/saveable';
 import uuid from 'uuid/v4';
 import { loop, Cmd } from 'redux-loop';
+import _ from 'lodash';
 
 import AnalyticsLevels, {
   ANALYTICS_NONE,
@@ -37,12 +38,22 @@ function sendEvents(action, events) {
   if (events.length == 0) return;
   return (dispatch, getState) => {
     var state = getState();
+
     for (var i = 0; i != events.length; ++i) {
-      client.recordEvent(events[i].collection, {
+      var data = {
         uid: state.analytics.uid,
         action: action.type,
+        platform: PLATFORM,
+        version: APP_VERSION_NUMBER,
         ...events[i].data(action, state)
-      });
+      };
+
+      if (!IS_PRODUCTION_BUILD)
+      {
+        console.log(_.set({}, events[i].collection, data));
+      } else {
+        client.recordEvent(events[i].collection, data);
+      }
     }
   }
 }

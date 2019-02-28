@@ -164,6 +164,7 @@ module.exports = function makeWebpackConfig() {
       'APP_VERSION_NUMBER': JSON.stringify(package.version),
       'BUILD_DATE': JSON.stringify(buildDate),
       'BUILD_TIMESTAMP': JSON.stringify(buildTimestamp),
+      'IS_PRODUCTION_BUILD': JSON.stringify(isProd),
       'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
       'PLATFORM': JSON.stringify(PLATFORM),
       'PLATFORM_WEB': JSON.stringify(PLATFORM_WEB),
