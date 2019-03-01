@@ -1,11 +1,11 @@
 {
   "name": "budget-haver",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Budget Haver",
   "scripts": {
     "build-icons": "cd windowdresser && npm install && node windowdresser.js && cp -R dist/app ../img",
     "build-web": "webpack",
-    "build-mobile": "webpack && phonegap build ios && phonegap build android && git add www/*",
+    "build-mobile": "webpack && phonegap build ios && export CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL=\"https\\://services.gradle.org/distributions/gradle-4.10.1-all.zip\" &&phonegap build android && git add www/*",
     "start": "webpack --watch",
     "deploy-web": "webpack && surge ./www"
   },
