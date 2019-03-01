@@ -5,7 +5,7 @@
   "scripts": {
     "build-icons": "cd windowdresser && npm install && node windowdresser.js && cp -R dist/app ../img",
     "build-web": "webpack",
-    "build-mobile": "webpack",
+    "build-mobile": "webpack && phonegap build ios && phonegap build android && git add www/*",
     "start": "webpack --watch",
     "deploy-web": "webpack && surge ./www"
   },
