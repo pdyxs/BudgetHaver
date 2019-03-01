@@ -81,7 +81,10 @@ export default function reducer(state = initialState, action = {})
     case SET_BASE_CURRENCY:
       return {
         ...state,
-        ...save({baseCurrency: action.currencyCode})
+        ...save({
+          baseCurrency: action.currencyCode,
+          spendCurrency: action.currencyCode
+        })
       };
     case SET_SPEND_CURRENCY:
       return {
@@ -104,9 +107,11 @@ export default function reducer(state = initialState, action = {})
       return state;
     case REMOVE_FAVOURITE_CURRENCY:
       if (_.includes(state.favouriteCurrencies, action.currencyCode)) {
+        var spendCurrency = state.spendCurrency == action.currencyCode ? state.baseCurrency : state.spendCurrency;
         return {
           ...state,
           ...save({
+            spendCurrency,
             favouriteCurrencies: _.without(state.favouriteCurrencies, action.currencyCode)
           })
         };

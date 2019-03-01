@@ -36,7 +36,7 @@ function checkAchievements(achievementsToCheck = achievementSpecs)
   }
 }
 
-const initialState = save(
+const initialState = init(
   _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
     achieved: false
   })).value()

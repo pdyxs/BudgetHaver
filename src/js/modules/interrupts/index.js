@@ -17,7 +17,7 @@ export function completeInterrupt() {
   };
 }
 
-const initialState = save({
+const initialState = init({
   active: [],
   complete: _(interruptTypes).mapKeys(i => i.id).mapValues(i => 0).value()
 });

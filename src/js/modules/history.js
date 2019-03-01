@@ -31,9 +31,9 @@ export function addHistoryRecord(amount)
   }
 }
 
-const initialState = //init(
-  {list: []}
-// );
+const initialState = init({
+  list: []
+});
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
