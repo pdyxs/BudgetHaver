@@ -6,6 +6,8 @@ import { overrideBalance, overrideBudget } from 'modules/budget';
 import { Link } from 'react-router-dom';
 import { getInCurrency, getCurrencyFormatter, setBaseCurrency, currencies, addFavouriteCurrency, removeFavouriteCurrency } from 'modules/currencies';
 
+import strings from 'modules/localisation';
+
 class SetupSettings extends Component
 {
   setBalance = (value) => {
@@ -21,7 +23,7 @@ class SetupSettings extends Component
     return (
       <Fragment>
         <div className="form-group">
-          <label>Daily Budget</label>
+          <label>{strings.Settings_Budget}</label>
           <LockableInput
             type="number"
             pattern="-?\d+\.\d*"
@@ -35,7 +37,7 @@ class SetupSettings extends Component
         </div>
 
         <div className="form-group">
-          <label>Override Balance</label>
+          <label>{strings.Settings_Balance}</label>
           <LockableInput
             type="number"
             pattern="-?\d+\.\d*"
@@ -49,7 +51,7 @@ class SetupSettings extends Component
         </div>
 
         <div className="w-100">
-          <Link className="btn btn-outline-primary w-100" to="/setup">Run Setup Again</Link>
+          <Link className="btn btn-outline-primary w-100" to="/setup">{strings.Settings_RunSetup}</Link>
         </div>
       </Fragment>
     );

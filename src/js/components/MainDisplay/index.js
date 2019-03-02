@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 import { currencies, getCurrencyFormatter } from 'modules/currencies';
 
+import strings from 'modules/localisation';
+
 class MainDisplay extends Component {
 
   render() {
@@ -10,7 +12,7 @@ class MainDisplay extends Component {
       <Fragment>
         <div className="card text-light bg-info">
           <div className="card-header">
-            <h3 className="card-title mb-0">You have</h3>
+            <h3 className="card-title mb-0">{strings.MainDisplayHeader}</h3>
           </div>
           <div className="card-body">
             <h2 className="display-3">
@@ -20,7 +22,7 @@ class MainDisplay extends Component {
           </div>
         </div>
         <div className="text-small text-muted">
-          You get {formatter(this.props.budget)} per day
+          {strings.formatString(strings.BudgetLine, formatter(this.props.budget))}
         </div>
       </Fragment>
     );

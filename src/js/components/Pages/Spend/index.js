@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { spendMoney } from 'modules/budget';
 import { setSpendCurrency, currencies, getCurrencyFormatter, getInBaseCurrency } from 'modules/currencies';
 
+import strings from 'modules/localisation';
+
 class SpendPage extends Component {
   constructor() {
     super();
@@ -74,7 +76,7 @@ class SpendPage extends Component {
         </div>
         <button className={`btn btn-lg btn-${spendStyle}`}
           onClick={this.spend}
-          id="spendButton" disabled={!canSpend}>Spend Money!</button>
+          id="spendButton" disabled={!canSpend}>{strings.SpendButton}</button>
       </div>
     );
   }

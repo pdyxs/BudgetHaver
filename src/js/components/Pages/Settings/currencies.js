@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { overrideBalance, overrideBudget } from 'modules/budget';
 import { getInCurrency, getCurrencyFormatter, setBaseCurrency, currencies, addFavouriteCurrency, removeFavouriteCurrency } from 'modules/currencies';
 
+import strings from 'modules/localisation';
+
 class CurrencySettings extends Component
 {
   constructor() {
@@ -45,7 +47,7 @@ class CurrencySettings extends Component
     return (
       <Fragment>
         <div className="mb-3">
-          <label>Base Currency</label>
+          <label>{strings.BaseCurrency}</label>
           <select value={this.props.baseCurrency}
             id="currencySelector" className="custom-select"
             onChange={this.setBaseCurrency}>
@@ -58,7 +60,7 @@ class CurrencySettings extends Component
         </div>
 
         <div className="mb-3">
-          <label>Active Currencies</label>
+          <label>{strings.ActiveCurrencies}</label>
           <ul className="list-group">
             {this.props.favouriteCurrencies.map(c => (
               <li className="list-group-item p-2 d-flex justify-content-between align-items-center rounded-bottom-0" key={c}>
@@ -71,7 +73,7 @@ class CurrencySettings extends Component
             <select value={this.state.addingCurrency}
               id="currencySelector" className={`custom-select${this.props.favouriteCurrencies.length == 0 ? '' : ' rounded-top-0 border-top-0'}`}
               onChange={this.changeAddableCurrency}>
-              <option disabled value="">Add Currency</option>
+              <option disabled value="">{strings.AddCurrency}</option>
               {_.map(_.difference(_.keys(currencies), [this.props.baseCurrency, ...this.props.favouriteCurrencies]), c => (
                 <option value={c} key={c}>
                   ({c}) {currencies[c].name}

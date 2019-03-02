@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import HistoryRow from './HistoryRow';
 
+import strings from 'modules/localisation';
+
 class HistoryPage extends Component {
 
   render() {
@@ -12,8 +14,8 @@ class HistoryPage extends Component {
         <table className="table m-0">
           <thead>
             <tr>
-              <th className="border-top-0">When</th>
-              <th className="border-top-0">Amount</th>
+              <th className="border-top-0">{strings.When}</th>
+              <th className="border-top-0">{strings.Amount}</th>
               <th className="border-top-0"></th>
             </tr>
           </thead>

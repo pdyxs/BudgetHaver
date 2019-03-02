@@ -1,8 +1,8 @@
 export const ANALYTICS_NONE = 'none';
 export const ANALYTICS_NAVIGATION = 'navigation';
 export const ANALYTICS_CURRENCY = 'currencies';
-export const ANALYTICS_BUDGET_ACTIONS = 'budget-actions';
-export const ANALYTICS_AMOUNTS = 'budget-amounts';
+export const ANALYTICS_BUDGET_ACTIONS = 'budgetActions';
+export const ANALYTICS_AMOUNTS = 'budgetAmounts';
 
 export function isAllowed(eventType, trackingLevel) {
   return _.findIndex(AnalyticsLevels, level => level.id == eventType)
