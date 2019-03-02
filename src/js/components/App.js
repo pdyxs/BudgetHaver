@@ -16,6 +16,8 @@ import Interrupts from 'modules/interrupts/Interrupts';
 
 import { isUnlocked } from 'modules/unlockables';
 
+import BasicStrings from 'modules/localisation';
+
 class App extends Component {
   componentDidMount() {
     this.timerID = setInterval(
@@ -58,7 +60,7 @@ class App extends Component {
             <Fragment>
               <div className="text-center">
                 <h1 className="text-small text-muted my-3">
-                  Budget Haver
+                  {BasicStrings.AppTitle}
                 </h1>
                 <MainDisplay />
               </div>

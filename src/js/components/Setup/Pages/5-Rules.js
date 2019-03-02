@@ -3,19 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { getCurrencyFormatter } from 'modules/currencies';
 
-class Congratulations extends Component {
+import {SetupStrings} from 'modules/localisation';
+
+class Rules extends Component {
   render() {
     var formatter = getCurrencyFormatter(this.props.baseCurrency);
     return (
       <div className="mx-4">
-        <div className="lead">Congratulations:</div>
-        <div className="lead">You are now a Budget Haver!</div>
-        <div className="lead mt-3">Your Budget:</div>
-        <h3 className="display-5">{formatter(this.props.balance)}<br />
-          <small>+{formatter(this.props.budget)}/day</small></h3>
+        <div className="lead">{SetupStrings.Rules_Budget_Header}</div>
+        <h3 className="display-5">{formatter(this.props.balance)}</h3>
+        <div className="text-secondary">
+          <p>{SetupStrings.Rules_Header}</p>
+          <ol>
+            {SetupStrings.Rules_List.map((t, index) =>
+              <li key={index} dangerouslySetInnerHTML={{__html: t}}></li>
+            )}
+          </ol>
+        </div>
         <div className="mt-5 text-right">
           <button onClick={this.props.onNext}
-            className="btn btn-primary">Great!
+            className="btn btn-primary">{SetupStrings.Rules_Next}
             <FontAwesomeIcon className="ml-2" icon={['far', 'chevron-double-right']} />
           </button>
         </div>
@@ -33,4 +40,4 @@ const mapStateToProps = ({budget, currencies}) => {
 
 export default connect(
   mapStateToProps
-)(Congratulations);
+)(Rules);

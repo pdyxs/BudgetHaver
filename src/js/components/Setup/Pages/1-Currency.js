@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { setBaseCurrency, currencies } from 'modules/currencies';
 
+import {SetupStrings} from 'modules/localisation';
+
 class Currency extends Component {
 
   setBaseCurrency = (evt) => {
@@ -13,11 +15,10 @@ class Currency extends Component {
   render() {
     return (
       <div className="mx-4">
-        <div className="lead">1. What currency to you live with?</div>
-        <div className="text-secondary mb-1">
-          This is whatever currency your bank accounts are in.
-          If there's more than one, pick the one you want to think in.
-        </div>
+        <div className="lead">{SetupStrings.Currency_Title}</div>
+        {SetupStrings.Currency_Texts.map((t, index) =>
+          <p className="text-secondary" key={index}>{t}</p>
+        )}
         <div>
           <select value={this.props.baseCurrency}
             id="currencySelector" className="custom-select"
@@ -32,7 +33,7 @@ class Currency extends Component {
 
         <div className="mt-5 text-right">
           <button onClick={this.props.onNext}
-            className="btn btn-primary">Next
+            className="btn btn-primary">{SetupStrings.Currency_Next}
             <FontAwesomeIcon className="ml-2" icon={['far', 'chevron-double-right']} />
           </button>
         </div>

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { overrideBudget } from 'modules/budget';
 import { currencies, getCurrencyFormatter } from 'modules/currencies';
 
+import strings, {SetupStrings} from 'modules/localisation';
+
 class Budget extends Component {
 
   overrideBudget = (evt) => {
@@ -15,16 +17,10 @@ class Budget extends Component {
     var formatter = (amt) => amt ? getCurrencyFormatter(this.props.baseCurrency)(amt, false) : "";
     return (
       <div className="mx-4">
-        <div className="lead">2. How much do you spend each day?</div>
-        <div className="text-secondary">
-          <p>
-            Ignoring any recurring costs, how much do you <i>think</i> you spend?
-          </p>
-          <p>
-            Don't worry too much about this number being right, you can always change
-            it later if you're not happy with it
-          </p>
-        </div>
+        <div className="lead">{SetupStrings.Budget_Title}</div>
+        {SetupStrings.Budget_Texts.map((t, index) =>
+          <p className="text-secondary" key={index} dangerouslySetInnerHTML={{__html: t}}></p>
+        )}
         <div className="input-group">
           <div className="input-group-prepend">
             <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
@@ -37,14 +33,14 @@ class Budget extends Component {
             onChange={this.overrideBudget}
             />
           <div className="input-group-append">
-            <span className="input-group-text">per day</span>
+            <span className="input-group-text">{strings.perDay}</span>
           </div>
         </div>
 
         <div className="mt-5 text-right">
           <button onClick={this.props.onNext}
             disabled={this.props.budget == 0}
-            className="btn btn-primary">Next
+            className="btn btn-primary">{SetupStrings.Budget_Next}
             <FontAwesomeIcon className="ml-2" icon={['far', 'chevron-double-right']} />
           </button>
         </div>

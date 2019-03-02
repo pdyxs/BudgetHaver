@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { overrideBalance } from 'modules/budget';
 import { currencies, getCurrencyFormatter } from 'modules/currencies';
 
+import strings, {SetupStrings} from 'modules/localisation';
+
 class StartingBalance extends Component {
   overrideBalanceAmount = (evt) => {
     var newBalance = Number(evt.target.value);
@@ -20,15 +22,10 @@ class StartingBalance extends Component {
     var days = this.props.balance / this.props.budget;
     return (
       <div className="mx-4">
-        <div className="lead">3. How much do you want to start with?</div>
-        <div className="text-secondary">
-          <p>
-            This is just a starting balance.
-          </p>
-          <p>
-            Generally, I'd recommend you start with 4-6 days worth, just as a buffer while you get used to the app
-          </p>
-        </div>
+        <div className="lead">{SetupStrings.StartingBalance_Title}</div>
+        {SetupStrings.StartingBalance_Texts.map((t, index) =>
+          <p className="text-secondary" key={index} dangerouslySetInnerHTML={{__html: t}}></p>
+        )}
         <div className="input-group">
           <input className="form-control"
             type="number"
@@ -37,10 +34,10 @@ class StartingBalance extends Component {
             onChange={this.overrideBalanceDays}
             />
           <div className="input-group-append">
-            <span className="input-group-text">days</span>
+            <span className="input-group-text">{strings.days}</span>
           </div>
         </div>
-        <div className="my-2">OR</div>
+        <div className="my-2">{strings.or.toUpperCase()}</div>
         <div className="input-group">
           <div className="input-group-prepend">
             <span className="input-group-text">{currencies[this.props.baseCurrency].symbol_native}</span>
@@ -57,7 +54,7 @@ class StartingBalance extends Component {
         <div className="mt-5 text-right">
           <button onClick={this.props.onNext}
             disabled={this.props.balance == 0}
-            className="btn btn-primary">Next
+            className="btn btn-primary">{SetupStrings.StartingBalance_Next}
             <FontAwesomeIcon className="ml-2" icon={['far', 'chevron-double-right']} />
           </button>
         </div>
