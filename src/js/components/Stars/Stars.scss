@@ -1,4 +1,115 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
 $stars-height: 85vh;
+
+@mixin aspect-gp($ratio) {
+  position: relative;
+  width: 100%;
+
+  .aspect-p {
+    position: relative;
+    padding-bottom: $ratio;
+
+    .aspect {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.sections {
+  height: $stars-height;
+}
+
+.section {
+  transition: all 0.5s ease;
+
+  &.small, &.full {
+    @extend .bg-dark;
+  }
+
+  &.min {
+    @extend .bg-secondary;
+  }
+}
+
+.max-height-lead {
+  max-height: 1.9rem;
+}
+
+.max-height-line {
+  max-height: 1.5rem;
+}
+
+.hidden-by-opacity {
+  opacity: 0;
+}
+
+.show-small {
+  transition: all 0.5s ease;
+  overflow: hidden;
+
+  .min & {
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .small &, .full & {
+    opacity: 1;
+  }
+}
+
+.show-full {
+  transition: all 0.5s ease;
+  overflow: hidden;
+
+  .min &, .small & {
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .full & {
+    opacity: 1;
+  }
+}
+
+.aspect-constellation {
+  .aspect-p {
+    transition: padding-bottom 0.5s ease;
+  }
+  .section.full & {
+    @include aspect-gp(100%);
+  }
+  .section.small & {
+    @include aspect-gp(75%);
+  }
+  .section.min & {
+    @include aspect-gp(25%);
+  }
+}
+
+.aspect-50 {
+  @include aspect-gp(50%);
+}
+
+.aspect-75 {
+  @include aspect-gp(75%);
+}
+
+.aspect-square {
+  @include aspect-gp(100%);
+}
+
+.star-map {
+  box-shadow: 0.25rem 0.25rem 1rem 0 rgba(0,0,0,0.5);
+}
 
 .fader {
   position: absolute;

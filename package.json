@@ -51,6 +51,7 @@
     "cordova-android": "^7.1.4",
     "cordova-browser": "^5.0.4",
     "cordova-ios": "^4.5.5",
+    "d3": "^5.9.1",
     "history": "^4.7.2",
     "i": "^0.3.6",
     "immutable": "^4.0.0-rc.12",

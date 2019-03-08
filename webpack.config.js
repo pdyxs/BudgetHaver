@@ -126,6 +126,10 @@ module.exports = function makeWebpackConfig() {
       {
         test: /\.svg$/,
         use: 'raw-loader'
+      },
+      {
+        test: /\.json$/,
+        use: 'json-loader'
       }
     ]
   };
