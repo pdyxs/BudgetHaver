@@ -15,7 +15,7 @@ export default new LocalizedStrings({
     ],
     FirstStarButton: "Show me my star!",
 
-    GoneNegativeHeading: "Don't Panic",
+    GoneNegativeHeading: "Don't Panic!",
     GoneNegativeTexts: [
       "You're balance has gone negative for the first time. This happens sometimes!",
       "Sometimes you might stay in the negative for a few days, or even a week or two. That's fine too!",

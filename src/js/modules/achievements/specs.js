@@ -3,7 +3,7 @@ import types from './types';
 const achievements = [
   {
     id: 'threeSpends',
-    name: "Spender",
+    name: "Spent",
     description: "Logged 3 spends",
     type: types.spendCount,
     args: {
@@ -12,25 +12,25 @@ const achievements = [
   },
   {
     id: 'hundredSpends',
-    name: "Big Spender",
-    description: "Logged 100 spends",
+    name: "Spent More",
+    description: "Logged 50 spends",
     type: types.spendCount,
     args: {
-      amount: 100
+      amount: 50
     }
   },
   {
     id: 'fivehundredSpends',
-    name: "Mega Spender",
-    description: "Logged 500 spends",
+    name: "Spent Most",
+    description: "Logged 200 spends",
     type: types.spendCount,
     args: {
-      amount: 500
+      amount: 200
     }
   },
   {
     id: 'thousandSpends',
-    name: "Ultra-Mega Spender",
+    name: "Spent Most-est",
     description: "Logged 1000 spends",
     type: types.spendCount,
     args: {
@@ -39,6 +39,7 @@ const achievements = [
   },
   {
     id: 'weekstreak',
+    name: 'Well Tracked Week',
     description: "Logged a spend every day for a week",
     type: types.streak,
     args: {
@@ -48,6 +49,7 @@ const achievements = [
   },
   {
     id: 'monthstreak',
+    name: 'Meticulous Month',
     description: "Logged a spend every day for a month",
     type: types.streak,
     args: {
@@ -57,6 +59,7 @@ const achievements = [
   },
   {
     id: 'quarterstreak',
+    name: 'Quantitative Quarter',
     description: "Logged a spend every day for a quarter",
     type: types.streak,
     args: {
@@ -82,6 +85,7 @@ const achievements = [
   // },
   {
     id: 'returnFromNegative',
+    name: 'The Prodigal',
     description: "Returned from a negative balance",
     type: types.returnFromNegative,
     args: {}

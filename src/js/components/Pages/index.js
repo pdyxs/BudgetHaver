@@ -10,7 +10,8 @@ import {
 } from '@fortawesome/pro-regular-svg-icons';
 import {
   faStar,
-  faCaretDown
+  faCaretDown,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 import SpendPage from './Spend';
@@ -23,6 +24,8 @@ import SettingsPage from './Settings';
 import SettingsHelp from './Settings/help.md';
 
 import InfoPage from './Info';
+
+library.add(faPlus);
 
 library.add(faQuestion);
 library.add(faTimes);

@@ -17,21 +17,23 @@ export default new LocalizedStrings({
 
     Budget_Title: "2. How much do you spend each day?",
     Budget_Texts: [
-      "Ignoring any recurring costs, how much do you <i>think</i> you spend?",
+      "Budget Haver gives you a daily budget: a certain amount each day to spend.",
+      "How much do you <i>think</i> you spend in a day? These are your everyday expenses like your morning coffee, lunch, the movies. Not your rent or netflix subscription",
       "Don't worry too much about this number being right, you can always change it later if you're not happy with it"
     ],
     Budget_Next: BasicStrings.Next,
 
-    StartingBalance_Title: "3. How much do you want to start with?",
+    StartingBalance_Title: "3. What's your starting balance?",
     StartingBalance_Texts: [
-      "This is just a starting balance.",
-      "Generally, I'd recommend you start with 4-6 days worth, just as a buffer while you get used to the app"
+      "Instead of looking at lots of different bank accounts, when you use Budget Haver you look at one number: your balance.",
+      "This balance goes up by your daily budget at midnight each day",
+      "I recommend you start with 4-6 day's worth, as a buffer while you get used to the app"
     ],
     StartingBalance_Next: BasicStrings.Next,
 
     Congratulations_Title: "Congratulations",
     Congratulations_Title_2: "You are now a Budget Haver!",
-    Congratulations_Budget_Header: "Your Budget:",
+    Congratulations_Budget_Header: "Your Balance:",
     Congratulations_Next: "Great!",
 
     Rules_Budget_Header: "You have",

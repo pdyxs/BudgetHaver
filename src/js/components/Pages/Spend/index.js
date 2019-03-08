@@ -1,8 +1,10 @@
 import Pages from './';
 import React, { Component, Fragment } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { spendMoney } from 'modules/budget';
 import { setSpendCurrency, currencies, getCurrencyFormatter, getInBaseCurrency } from 'modules/currencies';
+import { Link } from 'react-router-dom';
 
 import strings from 'modules/localisation';
 
@@ -59,15 +61,22 @@ class SpendPage extends Component {
             style={{width: `${percentLeft}%`}}></div>
         </div>
         <div className="mb-3">
-          <select value={this.props.spendCurrency}
-            id="currencySelector" className="custom-select"
-            onChange={this.setSpendCurrency}>
-            {_.map([this.props.baseCurrency, ...this.props.favouriteCurrencies], c => (
-              <option value={c} key={c}>
-                ({c}) {currencies[c].name}
-              </option>
-            ))}
-          </select>
+          <div className="input-group">
+            <select value={this.props.spendCurrency}
+              id="currencySelector" className="custom-select"
+              onChange={this.setSpendCurrency}>
+              {_.map([this.props.baseCurrency, ...this.props.favouriteCurrencies], c => (
+                <option value={c} key={c}>
+                  ({c}) {currencies[c].name}
+                </option>
+              ))}
+            </select>
+            <div className="input-group-append">
+              <Link className="btn btn-info" role="button" to="/settings/currencies">
+                <FontAwesomeIcon icon={['fas', 'plus']} />
+              </Link>
+            </div>
+          </div>
           {this.props.spendCurrency != this.props.baseCurrency &&
             <div id="currencyConverter" className="text-small text-muted">
               = <span id="convertedCurrency">{formatter(baseAmount, false)}</span> {this.props.baseCurrency}

@@ -21,7 +21,7 @@ class StartingBalance extends Component {
     var formatter = (amt) => amt ? getCurrencyFormatter(this.props.baseCurrency, false)(amt, false) : "";
     var days = this.props.balance / this.props.budget;
     return (
-      <div className="mx-4">
+      <div className="mx-3">
         <div className="lead">{SetupStrings.StartingBalance_Title}</div>
         {SetupStrings.StartingBalance_Texts.map((t, index) =>
           <p className="text-secondary" key={index} dangerouslySetInnerHTML={{__html: t}}></p>
@@ -51,7 +51,7 @@ class StartingBalance extends Component {
             />
         </div>
 
-        <div className="mt-5 text-right">
+        <div className="mt-3 text-right">
           <button onClick={this.props.onNext}
             disabled={this.props.balance == 0}
             className="btn btn-primary">{SetupStrings.StartingBalance_Next}
