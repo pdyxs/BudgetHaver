@@ -37,7 +37,7 @@ class Budget extends Component {
           </div>
         </div>
 
-        <div className="mt-5 text-right">
+        <div className="mt-3 text-right">
           <button onClick={this.props.onNext}
             disabled={this.props.budget == 0}
             className="btn btn-primary">{SetupStrings.Budget_Next}

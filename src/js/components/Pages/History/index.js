@@ -2,13 +2,18 @@ import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import HistoryRow from './HistoryRow';
+import moment from 'moment';
 
 import strings from 'modules/localisation';
 
 class HistoryPage extends Component {
 
   render() {
-    var list = _.reverse(_.takeRight(this.props.history.list, 5));
+    var list = _.reverse(_.takeRightWhile(this.props.history.list,
+      (val, index) =>
+        this.props.history.list.length - index <= 5 ||
+        moment(val.date).isSame(moment(), 'day')
+    ));
     return (
       <div className="card-body text-left py-0 px-0">
         <table className="table m-0">

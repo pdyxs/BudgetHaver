@@ -47,7 +47,7 @@ const achievementTypes = {
   returnFromNegative: {
     triggers: [ADD_BUDGET],
     check: (args, {budget: {balance, budget}}) => {
-      return balance < budget;
+      return balance < budget && balance > 0;
     }
   }
 }
