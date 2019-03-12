@@ -17,7 +17,7 @@ export default new LocalizedStrings({
 
     GoneNegativeHeading: "Don't Panic!",
     GoneNegativeTexts: [
-      "You're balance has gone negative for the first time. This happens sometimes!",
+      "Your balance has gone negative for the first time. This happens sometimes!",
       "Sometimes you might stay in the negative for a few days, or even a week or two. That's fine too!",
       "Just make sure you work towards being positive. If you're still in the negative after a while, think about increasing your daily budget (assuming that you can afford to)."
     ],
