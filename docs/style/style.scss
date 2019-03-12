@@ -22,8 +22,18 @@ $body-bg: #f3cc89;
   background-repeat: no-repeat;
 }
 
-@media (max-width: 350px) {
-  .display-4 {
-    font-size: 3rem !important;
+@media (max-width: 349px) {
+  .display-header {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 350px) {
+  .display-header {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
   }
 }
