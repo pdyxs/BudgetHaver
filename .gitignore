@@ -1,6 +1,7 @@
 platforms
 plugins
 node_modules
+www
 dist
 docs/_site
 docs/.sass-cache
