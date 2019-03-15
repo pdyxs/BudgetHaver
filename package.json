@@ -7,7 +7,8 @@
     "build-web": "webpack",
     "build-mobile": "webpack && phonegap build ios && phonegap build android",
     "start": "webpack --watch",
-    "deploy-web": "webpack && surge ./www"
+    "deploy-web": "webpack && surge ./www",
+    "version": "PACKAGE_VERSION=$(node -p -e \"require('./package.json').version\") && cordova-update-config --appversion ${PACKAGE_VERSION} && git add ./config.xml"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^4.5.2",
+    "cordova-update-config": "^1.0.3",
     "css-loader": "^0.28.11",
     "duplicate-package-checker-webpack-plugin": "^2.1.0",
     "html-loader": "^0.5.5",
