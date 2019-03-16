@@ -24,9 +24,13 @@ $body-bg: #f3cc89;
 
 @media (max-width: 349px) {
   .display-header {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 300;
     line-height: 1.2;
+  }
+
+  .lead-xs {
+    margin: 0 !important;
   }
 }
 
@@ -35,5 +39,10 @@ $body-bg: #f3cc89;
     font-size: 3.5rem;
     font-weight: 300;
     line-height: 1.2;
+  }
+
+  .lead-xs {
+    font-size: 1.25rem;
+    font-weight: 300;
   }
 }

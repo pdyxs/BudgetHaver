@@ -8,8 +8,18 @@ layout: home
   <div class="col-md-4 main-icon"></div>
   <div class="col-md-8 mb-4">
     <h1 class="display-header">Budget Haver</h1>
-    <p class="lead">is a free, minimalistic budgeting app, focusing on helping you to control your everyday spending</p>
-    <p class="lead">Sign up below to get news and access to the beta</p>
+    <div class="description">
+      <p class="lead mb-0">is a free, minimalistic budgeting app, focusing on helping you to control your everyday spending</p>
+      <p class="lead text-right"><a href="#" onClick="findoutmore()">Find out more</a></p>
+    </div>
+    <div class="blogs d-none">
+      <ul class="mb-0 list-unstyled">
+        <li class="lead"><a href="https://medium.com/@pdyxs/having-a-budget-7659059e52fa?source=friends_link&sk=e16b77d3f9f91f013633bb3c0c84fd53" target="_blank">Why I made this</a></li>
+        <li class="lead">More coming soon...</li>
+      </ul>
+      <p class="lead text-right"><a href="#" onClick="returnToDescription()">Return</a></p>
+    </div>
+    <p class="lead-xs">Sign up below to get news and access to the beta</p>
 
     <!-- Begin Mailchimp Signup Form -->
     <div id="mc_embed_signup">
@@ -44,4 +54,38 @@ layout: home
     </div>
     <!--End mc_embed_signup-->
   </div>
+
+  <script>
+    function animateCSS(element, animationName, callback) {
+        const node = document.querySelector(element)
+        node.classList.add('animated', animationName, 'faster')
+
+        function handleAnimationEnd() {
+            node.classList.remove('animated', animationName, 'faster')
+            node.removeEventListener('animationend', handleAnimationEnd)
+
+            if (typeof callback === 'function') callback()
+        }
+
+        node.addEventListener('animationend', handleAnimationEnd)
+    }
+
+    function findoutmore() {
+      flipBetween('.description', '.blogs');
+    }
+
+    function returnToDescription() {
+      flipBetween('.blogs', '.description');
+    }
+
+    function flipBetween(from, to) {
+      const height = $(from).height();
+      animateCSS(from, 'flipOutY', function() {
+        document.querySelector(from).classList.add('d-none');
+        $(to).css('min-height', height);
+        document.querySelector(to).classList.remove('d-none');
+        animateCSS(to, 'flipInY', function() {});
+      });
+    }
+  </script>
 </div>
