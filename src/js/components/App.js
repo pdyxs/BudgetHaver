@@ -11,6 +11,7 @@ import moment from 'moment';
 import Setup from './Setup';
 import Stars from './Stars';
 import { startSession, endSession } from 'modules/navigation';
+import classnames from 'classnames';
 
 import Interrupts from 'modules/interrupts/Interrupts';
 
@@ -53,7 +54,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className={
+          classnames(
+            {scrollable: !this.props.navigation.areStarsOpen},
+            "container")}>
         <Switch>
           <Route path="/setup" exact component={Setup} />
           <Route>
@@ -84,11 +88,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({budget, achievements, interrupts}) => {
+const mapStateToProps = ({budget, achievements, interrupts, navigation}) => {
   return {
     ...budget,
     achievements,
-    interrupts
+    interrupts,
+    navigation
   };
 }
 
