@@ -1,6 +1,6 @@
 {
   "name": "budget-haver",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Budget Haver",
   "scripts": {
     "build-icons": "cd windowdresser && npm install && node windowdresser.js && cp -R dist/app ../img",
