@@ -31,7 +31,7 @@
         <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preferences name="target-device" value="handset" />
+        <preference name="target-device" value="handset" />
         <icon height="57" platform="ios" src="res/icons/ios/icon.png" width="57" />
         <icon height="114" platform="ios" src="res/icons/ios/icon@2x.png" width="114" />
         <icon height="40" platform="ios" src="res/icons/ios/icon-40.png" width="40" />

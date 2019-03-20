@@ -35,10 +35,12 @@ class Stars extends Component {
           </div>
         </div>
         <div className={
-            classnames("stars", "w-100", "border-bottom", "border-primary", "bg-dark", "text-light",
+            classnames("stars", "w-100", "text-light",
                 {"expanded": this.props.areStarsOpen})
           }>
-          <ExpandableSections ref={this.sections} sections={sections} />
+          <div className={(classnames("bg-dark"))}>
+            <ExpandableSections ref={this.sections} sections={sections} />
+          </div>
           <div className="px-1 pt-2 bg-primary banner"
                onClick={this.toggleExpanded}>
             <FontAwesomeIcon className="text-light icon" icon={['fas', 'star']} />
