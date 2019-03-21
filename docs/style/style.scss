@@ -6,6 +6,15 @@ $body-bg: #f3cc89;
 @import "bootstrap/bootstrap";
 // @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
+.background-body {
+  background: $body-bg;
+}
+
+.container.align-middle {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
 @font-face {
   font-family: 'Quicksand';
   font-style: normal;
