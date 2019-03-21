@@ -9,7 +9,7 @@ import { InterruptStrings } from 'modules/localisation';
 class StarsUnlockedInterrupt extends Component {
   render() {
     return (
-      <div className="w-100 h-100 card align-middle text-center p-3">
+      <div className="w-100 h-100 card align-middle text-center p-3 mb-3 overflow-auto">
         <div className="my-auto">
           <p className="lead">{InterruptStrings.FirstStarHeading}</p>
           {InterruptStrings.FirstStarTexts.map((t, index) =>

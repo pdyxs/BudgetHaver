@@ -10,7 +10,7 @@ class AchievementInterrupts extends Component {
   render() {
     var achievement = _.find(achievements, {id: this.props.action.achievement});
     return (
-      <div className="w-100 h-100 card align-middle text-center">
+      <div className="w-100 h-100 card align-middle text-center py-3 mb-3 overflow-auto">
         <div className="my-auto">
           <p className="lead">{InterruptStrings.AchievementCongrats}</p>
           <p className="display-4">

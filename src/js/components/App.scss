@@ -67,6 +67,10 @@ $container-max-widths: (
   max-height: 100vh;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .noscroll {
   overflow: hidden !important;
   overscroll-behavior-y: none;
