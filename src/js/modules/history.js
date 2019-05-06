@@ -1,12 +1,15 @@
 // history.js
 import moment from 'moment';
 import {initState, saveState} from 'modules/saveable';
-import { getInBaseCurrency } from 'modules/currencies';
+import { getInCurrency, getInBaseCurrency } from 'modules/currencies';
+import { changeBalance } from 'modules/budget';
 
 const init = initState('history');
 const save = saveState('history');
 
 export const ADD_RECORD    = `${PACKAGE_NAME}/history/add-record`;
+export const DELETE_RECORD = `${PACKAGE_NAME}/history/delete-record`;
+export const EDIT_RECORD   = `${PACKAGE_NAME}/history/edit-record`;
 
 export function addHistoryRecord(amount)
 {
@@ -31,6 +34,46 @@ export function addHistoryRecord(amount)
   }
 }
 
+export function editHistoryRecord(record, newAmount)
+{
+  return (dispatch, getState) => {
+    var { currencies } = getState();
+    dispatch(changeBalance(getInBaseCurrency(
+      record.transaction[0].amount - newAmount,
+      record.transaction[0].currency,
+      currencies
+    )));
+    var amounts = _.map(record.transaction, (t, i) => {
+      if (i == 0) return newAmount;
+      return getInCurrency(newAmount, record.transaction[0].currency, t.currency, currencies.exchangeRates);
+    });
+    dispatch({
+      type: EDIT_RECORD,
+      date: record.date,
+      amounts
+    });
+  }
+}
+
+export function deleteHistoryRecord(record)
+{
+  return (dispatch, getState) => {
+    var {currencies} = getState();
+    var transaction = _.find(record.transaction, t => t.spendCurrency == currencies.baseCurrency);
+    if (transaction != null) {
+      dispatch(changeBalance(transaction.amount));
+    } else {
+      dispatch(changeBalance(
+        getInBaseCurrency(record.transaction[0].amount, record.transaction[0].currency, currencies)
+      ));
+    }
+    dispatch({
+      type: DELETE_RECORD,
+      date: record.date
+    });
+  };
+}
+
 const initialState = init({
   list: []
 });
@@ -48,6 +91,25 @@ export default function reducer(state = initialState, action = {}) {
         })
       };
       break;
+    case EDIT_RECORD:
+      var newList = _.cloneDeep(state.list);
+      var record = _.find(newList, r => r.date == action.date);
+      _.forEach(record.transaction, (t, i) => {
+        t.amount = action.amounts[i];
+      });
+      return {
+        ...state,
+        ...save({
+          list: newList
+        })
+      };
+    case DELETE_RECORD:
+      return {
+        ...state,
+        ...save({
+          list: _.filter(state.list, r => r.date != action.date)
+        })
+      };
     default:
       return state;
   }

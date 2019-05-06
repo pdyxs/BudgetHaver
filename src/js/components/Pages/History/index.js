@@ -17,10 +17,15 @@ class HistoryPage extends Component {
     return (
       <div className="card-body text-left py-0 px-0">
         <table className="table m-0">
+          <colgroup>
+            <col />
+            <col width="90" />
+            <col width="70" />
+          </colgroup>
           <thead>
             <tr>
               <th className="border-top-0">{strings.When}</th>
-              <th className="border-top-0">{strings.Amount}</th>
+              <th className="border-top-0 text-right pr-1">{strings.Amount}</th>
               <th className="border-top-0"></th>
             </tr>
           </thead>

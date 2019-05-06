@@ -13,6 +13,8 @@ export const CHECKED           = `${PACKAGE_NAME}/budget/checked`;
 export const OVERRIDE_BUDGET   = `${PACKAGE_NAME}/budget/override-budget`;
 export const OVERRIDE_BALANCE  = `${PACKAGE_NAME}/budget/override-balance`;
 
+export const CHANGE_BALANCE    = `${PACKAGE_NAME}/budget/change-balance`;
+
 export function spendMoney(amount)
 {
   return (dispatch, getState) => {
@@ -54,6 +56,14 @@ export function overrideBalance(amount)
 {
   return {
     type: OVERRIDE_BALANCE,
+    amount
+  };
+}
+
+export function changeBalance(amount)
+{
+  return {
+    type: CHANGE_BALANCE,
     amount
   };
 }
@@ -109,6 +119,12 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         ...save({balance: action.amount})
+      };
+
+    case CHANGE_BALANCE:
+      return {
+        ...state,
+        ...save({balance: state.balance + action.amount})
       };
 
     default:
