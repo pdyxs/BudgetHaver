@@ -75,3 +75,13 @@ $container-max-widths: (
   overflow: hidden !important;
   overscroll-behavior-y: none;
 }
+
+@media (pointer:coarse) {
+  @each $color, $value in $theme-colors {
+    .btn.btn-outline-#{$color}:hover {
+      color: theme-color($color);
+      background-color: white;
+      border-color: theme-color($color);
+    }
+  }
+}
