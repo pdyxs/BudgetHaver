@@ -8,7 +8,7 @@ const init = initState('budget');
 const save = saveState('budget');
 
 export const SPEND             = `${PACKAGE_NAME}/budget/spend`;
-export const ADD_BUDGET        = `${PACKAGE_NAME}/budget/add-budget`
+export const ADD_BUDGET        = `${PACKAGE_NAME}/budget/add-budget`;
 export const CHECKED           = `${PACKAGE_NAME}/budget/checked`;
 export const OVERRIDE_BUDGET   = `${PACKAGE_NAME}/budget/override-budget`;
 export const OVERRIDE_BALANCE  = `${PACKAGE_NAME}/budget/override-balance`;
@@ -46,9 +46,7 @@ export function checkIncome()
       type: ADD_BUDGET,
       days: daysSince
     });
-  }
-  return {
-    type: CHECK
+    dispatch({ type: CHECKED });
   };
 }
 
