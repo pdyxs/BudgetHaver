@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { spendMoney } from 'modules/budget';
 import { setSpendCurrency, currencies, getCurrencyFormatter, getInBaseCurrency } from 'modules/currencies';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import moment from 'moment';
+import classnames from 'classnames';
 
 import strings from 'modules/localisation';
 
@@ -46,6 +49,25 @@ class SpendPage extends Component {
                      percentLeft > 0 ? 'warning' :
                                         'danger';
     var formatter = getCurrencyFormatter(this.props.baseCurrency);
+
+    var startOfToday = moment().startOf('day');
+    var spendInLastDay = _.sumBy(
+      _.takeRightWhile(this.props.history, h => startOfToday.isBefore(moment(h.date))),
+      h => getInBaseCurrency(h.transaction[0].amount, h.transaction[0].currency, this.props)
+    ) + baseAmount;
+    var dailySpendPercentage = 100 * (1 - spendInLastDay / this.props.budget);
+    var dailySpendStyle = 'success';
+    if (dailySpendPercentage < 50) dailySpendStyle = 'warning';
+
+    var startOfWeek = moment().subtract(7, 'days').startOf('day');
+    var spendInLastWeek = _.sumBy(
+      _.takeRightWhile(this.props.history, h => startOfWeek.isBefore(moment(h.date))),
+      h => getInBaseCurrency(h.transaction[0].amount, h.transaction[0].currency, this.props)
+    ) + baseAmount;
+    var weeklySpendPercentage = 100 * (1 - spendInLastWeek / (this.props.budget * 7));
+    var weeklySpendStyle = 'success';
+    if (weeklySpendPercentage < 50) weeklySpendStyle = 'warning';
+
     return (
       <div className="card-body text-center">
         <div className="input-group rounded-bottom-0 mt-4">
@@ -56,10 +78,42 @@ class SpendPage extends Component {
             className="form-control" placeholder="0.00"
             value={this.state.spendInput} onChange={this.spendInputChanged} />
         </div>
-        <div className="progress mb-2 rounded-top-0">
-          <div className={`progress-bar bg-${spendStyle}`} role="progressbar" id="spendingBar"
-            style={{width: `${percentLeft}%`}}></div>
+        <div className="progress mb-0 rounded-0">
+          <div className={classnames('progress-bar', `bg-${dailySpendStyle}`)}
+            role="progressbar" id="spendingBar"
+            style={{width: `${Math.max(0,dailySpendPercentage)}%`}}></div>
+          {dailySpendPercentage < 0 &&
+            <Fragment>
+              <div className={classnames('progress-bar')}
+                role="progressbar" id="spendingBar"
+                style={{width: `${Math.max(0,100+dailySpendPercentage)}%`, background: 'none'}}></div>
+              <div className={classnames('progress-bar', 'bg-danger')}
+                role="progressbar" id="spendingBar"
+                style={{width: `${Math.min(100,-dailySpendPercentage)}%`}}></div>
+            </Fragment>
+          }
         </div>
+        <div className="progress mb-0 rounded-0">
+          <div className={classnames('progress-bar', `bg-${weeklySpendStyle}`)}
+            role="progressbar" id="spendingBar"
+            style={{width: `${Math.max(0,weeklySpendPercentage)}%`}}></div>
+          {weeklySpendPercentage < 0 &&
+            <Fragment>
+              <div className={classnames('progress-bar')}
+                role="progressbar" id="spendingBar"
+                style={{width: `${Math.max(0,100+weeklySpendPercentage)}%`, background: 'none'}}></div>
+              <div className={classnames('progress-bar', 'bg-danger')}
+                role="progressbar" id="spendingBar"
+                style={{width: `${Math.min(100,-weeklySpendPercentage)}%`}}></div>
+            </Fragment>
+          }
+        </div>
+        {this.props.balance >= 0 &&
+          <div className="progress mb-2 rounded-top-0">
+            <div className={`progress-bar bg-${spendStyle}`} role="progressbar" id="spendingBar"
+              style={{width: `${percentLeft}%`}}></div>
+          </div>
+        }
         <div className="mb-3">
           <div className="input-group">
             <select value={this.props.spendCurrency}
@@ -91,10 +145,11 @@ class SpendPage extends Component {
   }
 }
 
-const mapStateToProps = ({budget, currencies}) => {
+const mapStateToProps = ({budget, currencies, history}) => {
   return {
     ...budget,
-    ...currencies
+    ...currencies,
+    history: history.list
   };
 }
 
