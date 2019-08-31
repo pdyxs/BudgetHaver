@@ -25,6 +25,13 @@ $container-max-widths: (
   border-bottom-right-radius: 0 !important;
 }
 
+.progress.progress-sm {
+  height: 0.5rem;
+  .progress-bar {
+    height: 0.5rem;
+  }
+}
+
 .rounded-top-0,
 .rounded-top-0.input-group .input-group-text,
 .rounded-top-0.input-group .form-control {

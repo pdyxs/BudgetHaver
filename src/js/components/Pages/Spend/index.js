@@ -70,15 +70,38 @@ class SpendPage extends Component {
 
     return (
       <div className="card-body text-center">
-        <div className="input-group rounded-bottom-0 mt-4">
+        {this.props.balance >= 0 &&
+          <div className="progress mb-0 rounded-bottom-0 mt-4 progress-sm">
+            <div className={`progress-bar bg-${spendStyle}`} role="progressbar" id="spendingBar"
+              style={{width: `${percentLeft}%`}}></div>
+          </div>
+        }
+        {this.props.balance < 0 &&
+          <div className="progress mb-0 rounded-bottom-0 mt-4 progress-sm">
+            <div className={classnames('progress-bar', `bg-${weeklySpendStyle}`)}
+              role="progressbar" id="spendingBar"
+              style={{width: `${Math.max(0,weeklySpendPercentage)}%`}}></div>
+            {weeklySpendPercentage < 0 &&
+              <Fragment>
+                <div className={classnames('progress-bar')}
+                  role="progressbar" id="spendingBar"
+                  style={{width: `${Math.max(0,100+weeklySpendPercentage)}%`, background: 'none'}}></div>
+                <div className={classnames('progress-bar', 'bg-danger')}
+                  role="progressbar" id="spendingBar"
+                  style={{width: `${Math.min(100,-weeklySpendPercentage)}%`}}></div>
+              </Fragment>
+            }
+          </div>
+        }
+        <div className="input-group">
           <div className="input-group-prepend">
-            <span className="input-group-text">{currencies[this.props.spendCurrency].symbol_native}</span>
+            <span className="input-group-text rounded-0">{currencies[this.props.spendCurrency].symbol_native}</span>
           </div>
           <input id="spendMoneyInput" type="number" pattern="-?\d+\.\d*"
-            className="form-control" placeholder="0.00"
+            className="form-control rounded-0" placeholder="0.00"
             value={this.state.spendInput} onChange={this.spendInputChanged} />
         </div>
-        <div className="progress mb-0 rounded-0">
+        <div className="progress mb-0 rounded-top-0 mb-3 progress-sm">
           <div className={classnames('progress-bar', `bg-${dailySpendStyle}`)}
             role="progressbar" id="spendingBar"
             style={{width: `${Math.max(0,dailySpendPercentage)}%`}}></div>
@@ -93,27 +116,6 @@ class SpendPage extends Component {
             </Fragment>
           }
         </div>
-        <div className="progress mb-0 rounded-0">
-          <div className={classnames('progress-bar', `bg-${weeklySpendStyle}`)}
-            role="progressbar" id="spendingBar"
-            style={{width: `${Math.max(0,weeklySpendPercentage)}%`}}></div>
-          {weeklySpendPercentage < 0 &&
-            <Fragment>
-              <div className={classnames('progress-bar')}
-                role="progressbar" id="spendingBar"
-                style={{width: `${Math.max(0,100+weeklySpendPercentage)}%`, background: 'none'}}></div>
-              <div className={classnames('progress-bar', 'bg-danger')}
-                role="progressbar" id="spendingBar"
-                style={{width: `${Math.min(100,-weeklySpendPercentage)}%`}}></div>
-            </Fragment>
-          }
-        </div>
-        {this.props.balance >= 0 &&
-          <div className="progress mb-2 rounded-top-0">
-            <div className={`progress-bar bg-${spendStyle}`} role="progressbar" id="spendingBar"
-              style={{width: `${percentLeft}%`}}></div>
-          </div>
-        }
         <div className="mb-3">
           <div className="input-group">
             <select value={this.props.spendCurrency}
