@@ -1,7 +1,7 @@
 // balance.js
 import moment from 'moment';
 import { addHistoryRecord } from './history';
-import { Saveable, saveState } from 'modules/saveable';
+import Saveable from 'modules/saveable';
 import { getInBaseCurrency } from 'modules/currencies';
 
 const saveable = new Saveable(
@@ -83,12 +83,6 @@ export function overrideBudget(amount)
   };
 }
 
-const initialState = {
-  balance: 0,
-  lastUpdated: moment().valueOf(),
-  budget: 0
-};
-
 const reducer = saveable.buildReducer(
   (state, action, save) => {
     switch (action.type) {
@@ -100,7 +94,7 @@ const reducer = saveable.buildReducer(
 
       case CHECKED:
         var lastUpdated = moment().valueOf();
-        return save(state, {lastUpdated});
+        return save(state, {lastUpdated}, false);
 
       case ADD_BUDGET:
         var newBalance = state.balance + state.budget * action.days

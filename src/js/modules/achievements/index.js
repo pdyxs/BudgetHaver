@@ -1,13 +1,20 @@
 import achievementSpecs from './specs';
 import _ from 'lodash';
 import moment from 'moment';
-import {initState, saveState} from 'modules/saveable';
+import Saveable from 'modules/saveable';
 import { loop, Cmd } from 'redux-loop';
 
-export const MARK_ACHIEVED   = `${PACKAGE_NAME}/achievements/mark-achieved`;
+const saveable = new Saveable(
+  'achievements',
+  {
+    initialSaveable: _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
+        achieved: false
+      })).value(),
+    useCloud: true
+  }
+)
 
-const init = initState('achievements');
-const save = saveState('achievements');
+export const MARK_ACHIEVED   = `${PACKAGE_NAME}/achievements/mark-achieved`;
 
 function getAchievementsTriggeredBy(triggeringAction) {
   return _.filter(achievementSpecs, spec =>
@@ -36,29 +43,26 @@ function checkAchievements(achievementsToCheck = achievementSpecs)
   }
 }
 
-const initialState = init(
-  _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
-    achieved: false
-  })).value()
-);
-
-export default function reducer(state = initialState, action={}) {
-  switch (action.type) {
-    case MARK_ACHIEVED:
-      return {
-        ...state,
-        ...save(_.set({}, action.achievement, {
-          achieved: true,
-          achievementDate: moment().valueOf()
-        }))
-      };
-    default:
-      return loop(state,
-        Cmd.run(
-          getAchievementsTriggeredBy, {
-          successActionCreator: checkAchievements,
-          args: [action.type]
-        })
-      );
+const reducer = saveable.buildReducer(
+  (state, action, save) => {
+    switch (action.type) {
+      case MARK_ACHIEVED:
+        return save(state,
+          _.set({}, action.achievement, {
+            achieved: true,
+            achievementDate: moment().valueOf()
+          })
+        );
+      default:
+        return loop(state,
+          Cmd.run(
+            getAchievementsTriggeredBy, {
+            successActionCreator: checkAchievements,
+            args: [action.type]
+          })
+        );
+    }
   }
-}
+)
+
+export default reducer;

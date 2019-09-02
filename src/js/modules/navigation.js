@@ -5,10 +5,20 @@ export const OPEN_HELP      = `${PACKAGE_NAME}/navigation/help/open`;
 export const CLOSE_HELP     = `${PACKAGE_NAME}/navigation/help/close`;
 export const START_SESSION  = `${PACKAGE_NAME}/navigation/session/start`;
 export const END_SESSION    = `${PACKAGE_NAME}/navigation/session/end`;
-import {initState, saveState} from 'modules/saveable';
+import Saveable from 'modules/saveable';
 
-const init = initState('navigation');
-const save = saveState('navigation');
+const saveable = new Saveable(
+  'navigation',
+  {
+    initialSaveable: {
+      home: '/setup'
+    },
+    initialNonSaveable: {
+      areStarsOpen: false
+    },
+    useCloud: true
+  }
+)
 
 export function setHome(page)
 {
@@ -46,32 +56,26 @@ export function endSession()
   };
 }
 
-const initialState = {
-  ...init({
-    home: '/setup'
-  }),
-  areStarsOpen: false
-};
-
-export default function reducer(state = initialState, action={}) {
-  switch (action.type) {
-    case SET_HOME:
-      var newPage = action.page
-      return {
-        ...state,
-        ...save({home: newPage})
-      };
-    case OPEN_STARS:
-      return {
-        ...state,
-        areStarsOpen: true
-      };
-    case CLOSE_STARS:
-      return {
-        ...state,
-        areStarsOpen: false
-      };
-    default:
-      return state;
+const reducer = saveable.buildReducer(
+  (state, action, save) => {
+    switch (action.type) {
+      case SET_HOME:
+        var newPage = action.page
+        return save(state, {home: newPage});
+      case OPEN_STARS:
+        return {
+          ...state,
+          areStarsOpen: true
+        };
+      case CLOSE_STARS:
+        return {
+          ...state,
+          areStarsOpen: false
+        };
+      default:
+        return state;
+    }
   }
-}
+);
+
+export default reducer;
