@@ -1,26 +1,29 @@
 import _ from 'lodash';
 import moment from 'moment';
-import {initState, saveState} from 'modules/saveable';
+import Saveable from 'modules/saveable';
 import { loop, Cmd } from 'redux-loop';
-
-export const ADD_INTERRUPT      = `${PACKAGE_NAME}/interrupts/add`;
-export const COMPLETE_INTERRUPT = `${PACKAGE_NAME}/interrupts/complete`;
 
 import interruptTypes from './types';
 
-const init = initState('interrupts');
-const save = saveState('interrupts');
+const saveable = new Saveable(
+  'interrupts',
+  {
+    initialSaveable: {
+      active: [],
+      complete: _(interruptTypes).mapKeys(i => i.id).mapValues(i => 0).value()
+    },
+    useCloud: true
+  }
+);
+
+export const ADD_INTERRUPT      = `${PACKAGE_NAME}/interrupts/add`;
+export const COMPLETE_INTERRUPT = `${PACKAGE_NAME}/interrupts/complete`;
 
 export function completeInterrupt() {
   return {
     type: COMPLETE_INTERRUPT
   };
 }
-
-const initialState = init({
-  active: [],
-  complete: _(interruptTypes).mapKeys(i => i.id).mapValues(i => 0).value()
-});
 
 function getInterruptsTriggeredBy(triggeringAction, state) {
   var ret = _.filter(interruptTypes,
@@ -49,30 +52,24 @@ function addInterrupt(args) {
   }
 }
 
-export default function reducer(state = initialState, action={}) {
+const reducer = saveable.buildReducer((state, action, save) => {
   switch (action.type) {
     case ADD_INTERRUPT:
-      return {
-        ...state,
-        ...save({
-          active: [
-            ...state.active,
-            {
-              type: action.interruptType,
-              trigger: action.trigger
-            }
-          ]
-        })
-      }
+      return save(state, {
+        active: [
+          ...state.active,
+          {
+            type: action.interruptType,
+            trigger: action.trigger
+          }
+        ]
+      });
 
     case COMPLETE_INTERRUPT:
-      var ret = {
-        ...state,
-        ...save({
-          active: _.tail(state.active),
-          complete: _.set(state.complete, state.active[0].type, state.complete[state.active[0].type] + 1)
-        })
-      };
+      var ret = save(state, {
+        active: _.tail(state.active),
+        complete: _.set(state.complete, state.active[0].type, state.complete[state.active[0].type] + 1)
+      });
       var completedAction = _.find(interruptTypes, {id: state.active[0].type})?.completedAction;
       if (completedAction) {
         if (_.isFunction(completedAction)) {
@@ -91,4 +88,6 @@ export default function reducer(state = initialState, action={}) {
         })
       )
   }
-}
+});
+
+export default reducer;

@@ -1,11 +1,18 @@
 // history.js
 import moment from 'moment';
-import {initState, saveState} from 'modules/saveable';
+import Saveable from 'modules/saveable';
 import { getInCurrency, getInBaseCurrency } from 'modules/currencies';
 import { changeBalance } from 'modules/budget';
 
-const init = initState('history');
-const save = saveState('history');
+const saveable = new Saveable(
+  'history',
+  {
+    initialSaveable: {
+      list: []
+    },
+    useCloud: false
+  }
+);
 
 export const ADD_RECORD    = `${PACKAGE_NAME}/history/add-record`;
 export const DELETE_RECORD = `${PACKAGE_NAME}/history/delete-record`;
@@ -74,22 +81,15 @@ export function deleteHistoryRecord(record)
   };
 }
 
-const initialState = init({
-  list: []
-});
-
-export default function reducer(state = initialState, action = {}) {
+const reducer = saveable.buildReducer((state, action, save) => {
   switch (action.type) {
     case ADD_RECORD:
-      return {
-        ...state,
-        ...save({
-          list: [...state.list, {
-            date: moment().valueOf(),
-            transaction: action.transaction
-          }]
-        })
-      };
+      return save(state, {
+        list: [...state.list, {
+          date: moment().valueOf(),
+          transaction: action.transaction
+        }]
+      });
       break;
     case EDIT_RECORD:
       var newList = _.cloneDeep(state.list);
@@ -97,20 +97,16 @@ export default function reducer(state = initialState, action = {}) {
       _.forEach(record.transaction, (t, i) => {
         t.amount = action.amounts[i];
       });
-      return {
-        ...state,
-        ...save({
-          list: newList
-        })
-      };
+      return save(state, {
+        list: newList
+      });
     case DELETE_RECORD:
-      return {
-        ...state,
-        ...save({
-          list: _.filter(state.list, r => r.date != action.date)
-        })
-      };
+      return save(state, {
+        list: _.filter(state.list, r => r.date != action.date)
+      });
     default:
       return state;
   }
-}
+});
+
+export default reducer;

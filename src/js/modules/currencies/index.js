@@ -1,11 +1,23 @@
 import ExchangeRates from './exchange-rates.json';
 import Currencies from './currencies.json';
-import {initState, saveState} from 'modules/saveable';
+import Saveable from 'modules/saveable';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-const init = initState('budget');
-const save = saveState('budget');
+const saveable = new Saveable(
+  'currencies',
+  {
+    initialSaveable: {
+      baseCurrency: 'AUD',
+      spendCurrency: 'AUD',
+      favouriteCurrencies: []
+    },
+    initialNonSaveable: {
+      exchangeRates: ExchangeRates
+    },
+    useCloud: true
+  }
+);
 
 export const SET_BASE_CURRENCY = `${PACKAGE_NAME}/currencies/set-base-currency`;
 export const SET_SPEND_CURRENCY = `${PACKAGE_NAME}/currencies/set-spend-currency`;
@@ -68,56 +80,42 @@ export function getInBaseCurrency(amount, currency, {baseCurrency, exchangeRates
   return getInCurrency(amount, currency, baseCurrency, exchangeRates);
 }
 
-const initialState = init({
-  baseCurrency: 'AUD',
-  spendCurrency: 'AUD',
-  favouriteCurrencies: [],
-  exchangeRates: ExchangeRates
-});
-
-export default function reducer(state = initialState, action = {})
-{
-  switch (action.type) {
-    case SET_BASE_CURRENCY:
-      return {
-        ...state,
-        ...save({
-          baseCurrency: action.currencyCode,
-          spendCurrency: action.currencyCode
-        })
-      };
-    case SET_SPEND_CURRENCY:
-      return {
-        ...state,
-        ...save({spendCurrency: action.currencyCode})
-      };
-    case ADD_FAVOURITE_CURRENCY:
-      if (_.includes(_.keys(currencies), action.currencyCode) &&
-        !_.includes(state.favouriteCurrencies, action.currencyCode)) {
-        return {
-          ...state,
-          ...save({
+const reducer = saveable.buildReducer(
+  (state, action, save) => {
+    switch (action.type) {
+      case SET_BASE_CURRENCY:
+        return save(state,
+          {
+            baseCurrency: action.currencyCode,
+            spendCurrency: action.currencyCode
+          }
+        );
+      case SET_SPEND_CURRENCY:
+        return save(state, {spendCurrency: action.currencyCode});
+      case ADD_FAVOURITE_CURRENCY:
+        if (_.includes(_.keys(currencies), action.currencyCode) &&
+          !_.includes(state.favouriteCurrencies, action.currencyCode)) {
+          return save(state, {
             favouriteCurrencies: [
               ...state.favouriteCurrencies,
               action.currencyCode
             ]
-          })
-        };
-      }
-      return state;
-    case REMOVE_FAVOURITE_CURRENCY:
-      if (_.includes(state.favouriteCurrencies, action.currencyCode)) {
-        var spendCurrency = state.spendCurrency == action.currencyCode ? state.baseCurrency : state.spendCurrency;
-        return {
-          ...state,
-          ...save({
+          });
+        }
+        return state;
+      case REMOVE_FAVOURITE_CURRENCY:
+        if (_.includes(state.favouriteCurrencies, action.currencyCode)) {
+          var spendCurrency = state.spendCurrency == action.currencyCode ? state.baseCurrency : state.spendCurrency;
+          return save(state, {
             spendCurrency,
             favouriteCurrencies: _.without(state.favouriteCurrencies, action.currencyCode)
-          })
-        };
-      }
-      return state;
-    default:
-      return state;
+          });
+        }
+        return state;
+      default:
+        return state;
+    }
   }
-}
+);
+
+export default reducer;

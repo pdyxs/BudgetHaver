@@ -1,6 +1,6 @@
 export const SET_LEVEL  = `${PACKAGE_NAME}/analytics/set-level`;
 
-import {initState, saveState} from 'modules/saveable';
+import Saveable from 'modules/saveable';
 import uuid from 'uuid/v4';
 import { loop, Cmd } from 'redux-loop';
 import _ from 'lodash';
@@ -17,8 +17,16 @@ import AnalyticsEvents from './events';
 
 export { AnalyticsLevels };
 
-const init = initState('home');
-const save = saveState('home');
+const saveable = new Saveable(
+  'analytics',
+  {
+    initialSaveable: {
+      trackingLevel: ANALYTICS_AMOUNTS,
+      uid: uuid()
+    },
+    useCloud: true
+  }
+);
 
 import KeenTracking from 'keen-tracking';
 
@@ -66,31 +74,28 @@ export function setLevel(level)
   };
 }
 
-const initialState = init({
-  trackingLevel: ANALYTICS_AMOUNTS,
-  uid: uuid()
-});
-
-export default function reducer(state = initialState, action={}) {
-  switch (action.type) {
-    case SET_LEVEL:
-      return loop({
-          ...state,
-          ...save({trackingLevel: action.level})
-        },
-        Cmd.run(
-          getEventsTriggeredBy, {
-          successActionCreator: (events) => sendEvents(action, events),
-          args: [action.type, state.trackingLevel]
-        })
-      );
-    default:
-      return loop(state,
-        Cmd.run(
-          getEventsTriggeredBy, {
-          successActionCreator: (events) => sendEvents(action, events),
-          args: [action.type, state.trackingLevel]
-        })
-      );
+const reducer = saveable.buildReducer(
+  (state, action, save) => {
+    switch (action.type) {
+      case SET_LEVEL:
+        return loop(
+          save(state, {trackingLevel: action.level}),
+          Cmd.run(
+            getEventsTriggeredBy, {
+            successActionCreator: (events) => sendEvents(action, events),
+            args: [action.type, state.trackingLevel]
+          })
+        );
+      default:
+        return loop(state,
+          Cmd.run(
+            getEventsTriggeredBy, {
+            successActionCreator: (events) => sendEvents(action, events),
+            args: [action.type, state.trackingLevel]
+          })
+        );
+    }
   }
-}
+)
+
+export default reducer;

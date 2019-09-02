@@ -12,7 +12,7 @@ const saveable = new Saveable(
       })).value(),
     useCloud: true
   }
-)
+);
 
 export const MARK_ACHIEVED   = `${PACKAGE_NAME}/achievements/mark-achieved`;
 
