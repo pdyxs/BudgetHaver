@@ -11,6 +11,7 @@ import interrupts from 'modules/interrupts';
 import stars from 'modules/stars';
 
 import { combineReducers, install } from 'redux-loop';
+import { initialiseCloud } from 'modules/saveable';
 
 const store = createStore(combineReducers({
   interrupts,
@@ -25,5 +26,6 @@ const store = createStore(combineReducers({
   install(),
   applyMiddleware(thunk)
 ));
+store.dispatch(initialiseCloud());
 
 export default store;

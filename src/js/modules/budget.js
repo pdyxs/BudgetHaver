@@ -1,11 +1,20 @@
 // balance.js
 import moment from 'moment';
 import { addHistoryRecord } from './history';
-import {initState, saveState} from 'modules/saveable';
+import { Saveable, saveState } from 'modules/saveable';
 import { getInBaseCurrency } from 'modules/currencies';
 
-const init = initState('budget');
-const save = saveState('budget');
+const saveable = new Saveable(
+  'budget',
+  {
+    initialSaveable: {
+      balance: 0,
+      lastUpdated: moment().valueOf(),
+      budget: 0
+    },
+    useCloud: true
+  }
+);
 
 export const SPEND             = `${PACKAGE_NAME}/budget/spend`;
 export const ADD_BUDGET        = `${PACKAGE_NAME}/budget/add-budget`;
@@ -74,58 +83,48 @@ export function overrideBudget(amount)
   };
 }
 
-const initialState = init({
+const initialState = {
   balance: 0,
   lastUpdated: moment().valueOf(),
   budget: 0
-});
+};
 
-export default function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-    case SPEND:
-      var newBalance = state.balance - action.amount;
-      return {
-        ...state,
-        ...save({balance: newBalance})
-      };
+const reducer = saveable.buildReducer(
+  (state, action, save) => {
+    switch (action.type) {
+      case SPEND:
+        var newBalance = state.balance - action.amount;
+        return save(state, {
+          balance: newBalance
+        });
 
-    case CHECKED:
-      var lastUpdated = moment().valueOf();
-      return {
-        ...state,
-        ...save({lastUpdated})
-      }
+      case CHECKED:
+        var lastUpdated = moment().valueOf();
+        return save(state, {lastUpdated});
 
-    case ADD_BUDGET:
-      var newBalance = state.balance + state.budget * action.days
-      var lastUpdated = moment().valueOf();
-      return {
-        ...state,
-        ...save({
+      case ADD_BUDGET:
+        var newBalance = state.balance + state.budget * action.days
+        var lastUpdated = moment().valueOf();
+        return save(state, {
           balance: newBalance,
           lastUpdated
-        })
-      };
+        });
 
-    case OVERRIDE_BUDGET:
-      return {
-        ...state,
-        ...save({budget: action.amount})
-      };
+      case OVERRIDE_BUDGET:
+        return save(state, {budget: action.amount});
 
-    case OVERRIDE_BALANCE:
-      return {
-        ...state,
-        ...save({balance: action.amount})
-      };
+      case OVERRIDE_BALANCE:
+        return save(state, {balance: action.amount});
 
-    case CHANGE_BALANCE:
-      return {
-        ...state,
-        ...save({balance: state.balance + action.amount})
-      };
+      case CHANGE_BALANCE:
+        return save(state, {
+          balance: state.balance + action.amount
+        });
 
-    default:
-      return state;
+      default:
+        return state;
+    }
   }
-}
+);
+
+export default reducer;
