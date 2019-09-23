@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 import { currencies, getCurrencyFormatter } from 'modules/currencies';
 
+import "./MainDisplay.scss";
+
 import strings from 'modules/localisation';
 
 class MainDisplay extends Component {
@@ -10,8 +12,8 @@ class MainDisplay extends Component {
     var formatter = getCurrencyFormatter(this.props.baseCurrency);
     return (
       <Fragment>
-        <div className="card text-light bg-info">
-          <div className="card-header">
+        <div className="card bg-info mainCard">
+          <div className="card-header text-muted">
             <h3 className="card-title mb-0">{strings.MainDisplayHeader}</h3>
           </div>
           <div className="card-body">

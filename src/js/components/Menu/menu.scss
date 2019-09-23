@@ -1,0 +1,13 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
+$dark-border: theme-color("secondary");
+
+#tabMenu.nav-tabs {
+  border-color: $dark-border;
+
+  .nav-link.active {
+    border-color: $dark-border $dark-border theme-color("light");
+    background-color: theme-color("light");
+  }
+}

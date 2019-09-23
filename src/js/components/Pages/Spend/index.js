@@ -11,12 +11,16 @@ import classnames from 'classnames';
 
 import strings from 'modules/localisation';
 
+import './spend.scss';
+
 class SpendPage extends Component {
   constructor() {
     super();
     this.state = {
-      spendInput: ''
+      spendInput: '',
+      keyboard: false
     };
+    this.inputRef = React.createRef();
   }
 
   spendInputChanged = (evt) => {
@@ -39,6 +43,25 @@ class SpendPage extends Component {
 
   getInBaseCurrency = (amount) => {
     return getInBaseCurrency(amount, this.props.spendCurrency, this.props);
+  }
+
+  expandKeyboard = () => {
+    // this.setState({
+    //   keyboard: true
+    // });
+  }
+
+  retractKeyboard = () => {
+    // this.setState({
+    //   keyboard: false
+    // });
+  }
+
+  handleKeyPress = (evt) => {
+    if (evt.key == 'Enter') {
+      this.spend();
+      this.inputRef.current.blur();
+    }
   }
 
   render() {
@@ -99,6 +122,7 @@ class SpendPage extends Component {
           </div>
           <input id="spendMoneyInput" type="number" pattern="-?\d+\.\d*"
             className="form-control rounded-0" placeholder="0.00"
+            onKeyDown={this.handleKeyPress} ref={this.inputRef}
             value={this.state.spendInput} onChange={this.spendInputChanged} />
         </div>
         <div className="progress mb-0 rounded-top-0 mb-3 progress-sm">
@@ -142,6 +166,24 @@ class SpendPage extends Component {
         <button className={`btn btn-lg btn-${spendStyle}`}
           onClick={this.spend}
           id="spendButton" disabled={!canSpend}>{strings.SpendButton}</button>
+        {this.state.keyboard && (
+          <div className="keyboard">
+            <div className="row">
+              <div className="col-4">1</div>
+              <div className="col-4">2</div>
+              <div className="col-4">3</div>
+              <div className="col-4">4</div>
+              <div className="col-4">5</div>
+              <div className="col-4">6</div>
+              <div className="col-4">7</div>
+              <div className="col-4">8</div>
+              <div className="col-4">9</div>
+              <div className="col-4">.</div>
+              <div className="col-4">0</div>
+              <div className="col-4">Del</div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

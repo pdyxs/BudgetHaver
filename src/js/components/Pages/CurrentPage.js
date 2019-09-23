@@ -41,7 +41,7 @@ class CurrentPage extends Component {
   render() {
     return (
       <div className={classnames(
-          "card", "border-top-0", "rounded-top-0", "tab-content", "mb-3")}>
+          "card", "border-secondary", "bg-light", "border-top-0", "rounded-top-0", "tab-content", "mb-3")}>
         <Switch>
           { Pages.map(page => (
             <Route path={`/${page.id}`} key={page.id}>

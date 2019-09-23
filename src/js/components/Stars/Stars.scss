@@ -1,4 +1,6 @@
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
 
 $stars-height: 90vh;
 
@@ -30,11 +32,11 @@ $stars-height: 90vh;
   transition: all 0.5s ease;
 
   &.small, &.full {
-    @extend .bg-dark;
+    background-color: theme-color("dark");
   }
 
   &.min {
-    @extend .bg-secondary;
+    background-color: theme-color("secondary");
   }
 }
 

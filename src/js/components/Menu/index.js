@@ -3,6 +3,8 @@ import React, { Component, Fragment } from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import "./menu.scss";
+
 class Menu extends Component {
 
   render() {

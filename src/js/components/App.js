@@ -25,7 +25,7 @@ class App extends Component {
       () => this.doCheck(),
       5000
     );
-    this.doCheck();
+    setTimeout(this.doCheck, 10);
     this.props.startSession();
     this.setupBeforeUnloadListener();
   }
@@ -63,7 +63,7 @@ class App extends Component {
           <Route>
             <Fragment>
               <div className="text-center">
-                <h1 className="text-small text-muted my-3">
+                <h1 className="text-small my-3">
                   {BasicStrings.AppTitle}
                 </h1>
                 <MainDisplay />

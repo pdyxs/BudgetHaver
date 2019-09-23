@@ -15,6 +15,12 @@ $container-max-widths: (
   xl: 1140px
 ) !default;
 
+$body-bg: #f3cc89;
+
+$theme-colors: (
+  "info": #baed80
+);
+
 //Bootstrap
 @import "node_modules/bootstrap/scss/bootstrap";
 
