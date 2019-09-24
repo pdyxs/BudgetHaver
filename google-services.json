@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "656564765135",
+    "firebase_url": "https://budget-haver.firebaseio.com",
+    "project_id": "budget-haver",
+    "storage_bucket": "budget-haver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656564765135:android:7a207d1a1ca118545152ba",
+        "android_client_info": {
+          "package_name": "wtf.pdyxs.budgethaver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656564765135-1nmbrfsneng6jhf8m6q3fulpomuvnfdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxQimcQZ3B7__5wGfOppcMAZ_hTJNX57w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656564765135-1nmbrfsneng6jhf8m6q3fulpomuvnfdr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "656564765135-k7lh07uoaorjpl696cmamr19u51ppfji.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "wtf.pdyxs.budgethaver"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

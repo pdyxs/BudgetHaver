@@ -16,7 +16,7 @@ const interruptTypes = [
   {
     id: 'stars-unlocked',
     trigger: STAR_ADDED,
-    maxRepetitions: 1,
+    maxRepetitions: 0,
     Component: StarsUnlockedInterrupt,
     completedAction: () => toggleStars(true)
   },

@@ -9,10 +9,12 @@ const saveable = new Saveable(
   'interrupts',
   {
     initialSaveable: {
-      active: [],
       complete: _(interruptTypes).mapKeys(i => i.id).mapValues(i => 0).value()
     },
-    useCloud: true
+    initialNonSaveable: {
+      active: []
+    },
+    useCloud: false
   }
 );
 

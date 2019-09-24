@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>656564765135-k7lh07uoaorjpl696cmamr19u51ppfji.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.656564765135-k7lh07uoaorjpl696cmamr19u51ppfji</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBtIJ6rSrP9PVRO_7VDd3pFMAGTJvBAJf8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>656564765135</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>wtf.pdyxs.budgethaver</string>
+	<key>PROJECT_ID</key>
+	<string>budget-haver</string>
+	<key>STORAGE_BUCKET</key>
+	<string>budget-haver.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:656564765135:ios:9da165210ff97efc5152ba</string>
+	<key>DATABASE_URL</key>
+	<string>https://budget-haver.firebaseio.com</string>
+</dict>
+</plist>

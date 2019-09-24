@@ -7,7 +7,7 @@ const bus = new EventEmitter();
 let CloudSaveLock = false;
 let CloudHasLoaded = false;
 
-let CloudDebug = false;
+let CloudDebug = true;
 
 export const MERGE_STRATEGY_USE_LATEST = `${PACKAGE_NAME}/saveable/merge-strategy/use-latest`;
 
@@ -50,8 +50,7 @@ async function loadCloudDataAndOverwrite(dispatch) {
   var cloudData = await cloudSettingsLoad();
   if (CloudDebug)
   {
-    console.log("cloud data");
-    console.log(cloudData);
+    console.log(`cloud data: ${JSON.stringify(cloudData)}`);
   }
   dispatch({
     type: UPDATE_FROM_CLOUD,
@@ -101,7 +100,7 @@ async function runInitialiseCloud(dispatch, getState) {
       );
     }
   } catch (e) {
-    console.log(e);
+    console.log(JSON.stringify(e));
   }
 }
 
@@ -144,8 +143,7 @@ export default class Saveable {
       }
     }
     if (CloudDebug) {
-      console.log(`initial state of ${this.name}`);
-      console.log(this.initialState);
+      console.log(`initial state of ${this.name}: ${JSON.stringify(this.initialState)}`);
     }
   }
 
@@ -179,14 +177,9 @@ export default class Saveable {
     newState.lastEdit = moment().valueOf();
     try {
       if (CloudDebug) {
-        console.log(`saving to cloud: ${this.name}`);
-        console.log(newState);
+        console.log(`saving ${this.name} to cloud: ${JSON.stringify(newState)}`);
       }
       newState = await doCloudSave(_.set({}, this.name, newState));
-      if (CloudDebug) {
-        console.log(`saved: ${this.name}`);
-        console.log(newState);
-      }
     } catch (e) {
       console.log(JSON.stringify(e));
     }
