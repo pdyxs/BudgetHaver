@@ -31,7 +31,12 @@ module.exports = function makeWebpackConfig() {
   var config = {};
 
   config.resolve = {
-    modules: [path.resolve(__dirname, "src/js"), "node_modules"]
+    modules: [path.resolve(__dirname, "src/js"), "node_modules"],
+    alias: {
+      "prop-types": path.resolve(__dirname, 'node_modules/prop-types'),
+      "hoist-non-react-statics": path.resolve(__dirname, 'node_modules/hoist-non-react-statics'),
+      "unist-util-visit-parents": path.resolve(__dirname, 'node_modules/unist-util-visit-parents'),
+    }
   };
 
   config.entry = ['@babel/polyfill', "./src/js/index.js"];

@@ -40,7 +40,7 @@ async function doCloudSave(settings, overwrite = false) {
   try {
     ret = await cloudSettingsSave(settings, overwrite);
   } catch (e) {
-    console.log(e);
+    console.log(JSON.stringify(e));
   }
   CloudSaveLock = false;
   bus.emit('unlocked');
@@ -196,7 +196,8 @@ export default class Saveable {
             {
               switch (this.mergeStrategy) {
                 case MERGE_STRATEGY_USE_LATEST:
-                  if ((action.cloudData[this.name].lastEdit || 0) > state.lastEdit)
+                  if (action.cloudData[this.name].useCloud &&
+                    (action.cloudData[this.name].lastEdit || 0) > state.lastEdit)
                   {
                     return {
                       ..._.pick(state, this.nonSavedKeys),

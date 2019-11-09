@@ -9,8 +9,7 @@ const saveable = new Saveable(
   {
     initialSaveable: _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
         achieved: false
-      })).value(),
-    useCloud: true
+      })).value()
   }
 );
 

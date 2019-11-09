@@ -15,7 +15,7 @@ const saveable = new Saveable(
     initialNonSaveable: {
       exchangeRates: ExchangeRates
     },
-    useCloud: true
+    useCloud: false
   }
 );
 
