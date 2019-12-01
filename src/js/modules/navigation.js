@@ -5,19 +5,17 @@ export const OPEN_HELP      = `${PACKAGE_NAME}/navigation/help/open`;
 export const CLOSE_HELP     = `${PACKAGE_NAME}/navigation/help/close`;
 export const START_SESSION  = `${PACKAGE_NAME}/navigation/session/start`;
 export const END_SESSION    = `${PACKAGE_NAME}/navigation/session/end`;
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 
 const saveable = new Saveable(
   'navigation',
+  [{
+    defaults: {home: '/setup'},
+    sources: [LocalStorageService]
+  },
   {
-    initialSaveable: {
-      home: '/setup'
-    },
-    initialNonSaveable: {
-      areStarsOpen: false
-    },
-    useCloud: true
-  }
+    defaults: {areStarsOpen: false}
+  }]
 )
 
 export function setHome(page)

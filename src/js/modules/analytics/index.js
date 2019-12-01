@@ -1,6 +1,6 @@
 export const SET_LEVEL  = `${PACKAGE_NAME}/analytics/set-level`;
 
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 import uuid from 'uuid/v4';
 import { loop, Cmd } from 'redux-loop';
 import _ from 'lodash';
@@ -19,13 +19,13 @@ export { AnalyticsLevels };
 
 const saveable = new Saveable(
   'analytics',
-  {
-    initialSaveable: {
+  [{
+    defaults: {
       trackingLevel: ANALYTICS_AMOUNTS,
       uid: uuid()
     },
-    useCloud: true
-  }
+    sources: [LocalStorageService]
+  }]
 );
 
 import KeenTracking from 'keen-tracking';

@@ -1,22 +1,22 @@
 import ExchangeRates from './exchange-rates.json';
 import Currencies from './currencies.json';
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
 const saveable = new Saveable(
   'currencies',
-  {
-    initialSaveable: {
+  [{
+    defaults: {
       baseCurrency: 'AUD',
       spendCurrency: 'AUD',
       favouriteCurrencies: []
     },
-    initialNonSaveable: {
-      exchangeRates: ExchangeRates
-    },
-    useCloud: false
-  }
+    sources: [LocalStorageService]
+  },
+  {
+    defaults: {exchangeRates: ExchangeRates}
+  }]
 );
 
 export const SET_BASE_CURRENCY = `${PACKAGE_NAME}/currencies/set-base-currency`;

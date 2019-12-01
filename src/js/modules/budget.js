@@ -1,19 +1,19 @@
 // balance.js
 import moment from 'moment';
 import { addHistoryRecord } from './history';
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 import { getInBaseCurrency } from 'modules/currencies';
 
 const saveable = new Saveable(
   'budget',
-  {
-    initialSaveable: {
+  [{
+    defaults: {
       balance: 0,
       lastUpdated: moment().valueOf(),
       budget: 0
     },
-    useCloud: true
-  }
+    sources: [LocalStorageService]
+  }]
 );
 
 export const SPEND             = `${PACKAGE_NAME}/budget/spend`;
@@ -94,7 +94,7 @@ const reducer = saveable.buildReducer(
 
       case CHECKED:
         var lastUpdated = moment().valueOf();
-        return save(state, {lastUpdated}, false);
+        return save(state, {lastUpdated});
 
       case ADD_BUDGET:
         var newBalance = state.balance + state.budget * action.days

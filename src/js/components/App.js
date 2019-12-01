@@ -21,13 +21,18 @@ import BasicStrings from 'modules/localisation';
 
 class App extends Component {
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.doCheck(),
-      5000
-    );
-    setTimeout(this.doCheck, 10);
     this.props.startSession();
     this.setupBeforeUnloadListener();
+  }
+
+  componentDidMount() {
+    if (this.props) {
+      this.doCheck();
+      this.timerID = setInterval(
+        () => this.doCheck(),
+        5000
+      );
+    }
   }
 
   componentWillUnmount() {

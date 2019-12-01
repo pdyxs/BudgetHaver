@@ -1,17 +1,15 @@
 // history.js
 import moment from 'moment';
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 import { getInCurrency, getInBaseCurrency } from 'modules/currencies';
 import { changeBalance } from 'modules/budget';
 
 const saveable = new Saveable(
   'history',
-  {
-    initialSaveable: {
-      list: []
-    },
-    useCloud: false
-  }
+  [{
+    defaults: {list: []},
+    sources: [LocalStorageService]
+  }]
 );
 
 export const ADD_RECORD    = `${PACKAGE_NAME}/history/add-record`;

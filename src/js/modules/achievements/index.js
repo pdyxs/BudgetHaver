@@ -1,16 +1,17 @@
 import achievementSpecs from './specs';
 import _ from 'lodash';
 import moment from 'moment';
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 import { loop, Cmd } from 'redux-loop';
 
 const saveable = new Saveable(
   'achievements',
-  {
-    initialSaveable: _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
-        achieved: false
-      })).value()
-  }
+  [{
+    defaults: _(achievementSpecs).mapKeys(a => a.id).mapValues(() => ({
+      achieved: false
+    })).value(),
+    sources: [LocalStorageService]
+  }]
 );
 
 export const MARK_ACHIEVED   = `${PACKAGE_NAME}/achievements/mark-achieved`;

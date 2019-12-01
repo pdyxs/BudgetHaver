@@ -1,21 +1,19 @@
 import _ from 'lodash';
 import moment from 'moment';
-import Saveable from 'modules/saveable';
+import Saveable, {LocalStorageService} from 'modules/saveable';
 import { loop, Cmd } from 'redux-loop';
 
 import interruptTypes from './types';
 
 const saveable = new Saveable(
   'interrupts',
+  [{
+    defaults: {complete: _(interruptTypes).mapKeys(i => i.id).mapValues(i => 0).value()},
+    sources: [LocalStorageService]
+  },
   {
-    initialSaveable: {
-      complete: _(interruptTypes).mapKeys(i => i.id).mapValues(i => 0).value()
-    },
-    initialNonSaveable: {
-      active: []
-    },
-    useCloud: false
-  }
+    defaults: {active: []}
+  }]
 );
 
 export const ADD_INTERRUPT      = `${PACKAGE_NAME}/interrupts/add`;
