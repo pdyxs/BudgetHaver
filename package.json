@@ -64,7 +64,7 @@
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
     "cordova-android": "8.1.0",
-    "cordova-browser": "^5.0.4",
+    "cordova-browser": "^6.0.0",
     "cordova-ios": "^5.0.0",
     "cordova-plugin-cloud-settings": "1.0.4",
     "cordova-plugin-firebase-analytics": "^3.0.0",
